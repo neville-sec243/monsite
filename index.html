@@ -10,16 +10,21 @@ body{font-family:Arial,sans-serif;background:#f1f5f9;color:#0f172a;margin:0}
 .header{background:#2563eb;color:white;padding:22px 15px;text-align:center;border-bottom:4px solid #f97316}
 .header h1{margin:0;font-size:24px}
 .header p{margin:6px 0 0;opacity:0.9;font-size:13px}
-.live-bar{background:#dc2626;color:white;text-align:center;padding:8px;font-weight:bold;font-size:13px}
-.container{padding:15px;max-width:650px;margin:0 auto}
+.live-bar{background:#16a34a;color:white;text-align:center;padding:8px;font-weight:bold;font-size:13px}
+.tabs{display:flex;gap:10px;padding:15px;max-width:650px;margin:0 auto}
+.tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.tabs button.active{background:#2563eb;color:white}
+.container{padding:0 15px 15px;max-width:650px;margin:0 auto}
 .card{background:white;padding:14px;border-radius:14px;margin:12px 0;box-shadow:0 2px 10px rgba(0,0,0,0.07)}
 .top{display:flex;justify-content:space-between;align-items:center}
 .teams{font-weight:bold;font-size:15px}
 .time{background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:12px}
-.prono{margin-top:10px;padding:10px;background:#f8fafc;border-radius:10px;font-size:14px;display:flex;justify-content:space-between}
+.prono{margin-top:10px;padding:10px;background:#f8fafc;border-radius:10px;font-size:14px;display:flex;justify-content:space-between;align-items:center}
 .prono b{color:#16a34a}
-.score{background:#f97316;color:white;padding:4px 9px;border-radius:20px;font-weight:bold}
+.score{background:#f97316;color:white;padding:4px 9px;border-radius:20px;font-weight:bold;font-size:13px}
 .live-score{background:#16a34a;color:white;padding:4px 9px;border-radius:20px;font-weight:bold;font-size:13px}
+.details{margin-top:10px;background:#f8fafc;border-radius:10px;padding:10px;font-size:13px}
+summary{font-weight:bold;cursor:pointer;color:#2563eb}
 .footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
 </style>
 </head>
@@ -28,55 +33,74 @@ body{font-family:Arial,sans-serif;background:#f1f5f9;color:#0f172a;margin:0}
 <h1>⚽ PRONOSTICS EUROPE</h1>
 <p>Ligue des Champions - Scores en direct | Heure GMT</p>
 </div>
-<div class="live-bar">🔴 <span id="status">Connexion aux scores en direct...</span></div>
+<div class="live-bar">🔴 EN DIRECT - <span id="status">Connexion...</span></div>
 
-<div class="container" id="matches">
-<p style="text-align:center">Chargement des matchs...</p>
+<div class="tabs">
+<button id="btnMardi" class="active" onclick="show('mardi')">MARDI 24 NOV</button>
+<button id="btnMercredi" onclick="show('mercredi')">MERCREDI 25 NOV</button>
 </div>
 
-<div class="footer">Pronostics à titre informatif - © 2026 Pronostics Europe<br>Scores actualisés automatiquement via API</div>
+<div class="container">
+<div id="mardi"></div>
+<div id="mercredi" style="display:none"></div>
+<div id="msg" style="text-align:center;color:#64748b"></div>
+<div class="footer">Pronostics à titre informatif - © 2026 Pronostics Europe<br>Scores actualisés automatiquement</div>
+</div>
 
 <script>
-// ===== METS TA CLÉ ICI =====
-const API_KEY = "ccaaeabdf0744f049b1092b33362c4b0";
-// ============================
-
 const PRONOS = {
-  "Arsenal": { prono: "Victoire Arsenal", score: "2 - 1", conf: "82%" },
-  "Manchester City": { prono: "Victoire City", score: "3 - 1", conf: "78%" },
-  "Real Madrid": { prono: "Victoire Real", score: "3 - 0", conf: "80%" },
-  "Paris Saint-Germain": { prono: "Victoire PSG", score: "2 - 0", conf: "84%" },
-  "FC Barcelona": { prono: "Victoire Barça", score: "0 - 4", conf: "90%" },
-  "Bayern München": { prono: "Victoire Bayern", score: "1 - 3", conf: "76%" }
+  "Galatasaray": {p:"Victoire Galatasaray", s:"2 - 1", c:"68%"},
+  "Aston Villa": {p:"Victoire Galatasaray", s:"2 - 1", c:"68%"},
+  "Arsenal": {p:"Victoire Arsenal", s:"2 - 1", c:"82% ⭐"},
+  "Dortmund": {p:"Victoire Arsenal", s:"2 - 1", c:"82% ⭐"},
+  "Man City": {p:"Victoire City", s:"3 - 1", c:"78%"},
+  "Napoli": {p:"Victoire City", s:"3 - 1", c:"78%"},
+  "Real Madrid": {p:"Victoire Real", s:"3 - 0", c:"80%"},
+  "PSV": {p:"Victoire Real", s:"3 - 0", c:"80%"},
+  "Paris SG": {p:"Victoire PSG", s:"2 - 0", c:"84% ⭐"},
+  "Roma": {p:"Victoire PSG", s:"2 - 0", c:"84% ⭐"},
+  "Barcelona": {p:"Victoire Barça", s:"0 - 4", c:"90% ⭐"},
+  "Bayern": {p:"Victoire Bayern", s:"1 - 3", c:"76%"},
+  "Liverpool": {p:"Victoire Liverpool", s:"1 - 2", c:"69%"},
+  "Inter": {p:"Victoire Inter", s:"2 - 0", c:"73%"},
+  "Atl. Madrid": {p:"Victoire Atlético", s:"2 - 0", c:"77%"}
 };
 
-async function loadMatches(){
+function show(j){
+  document.getElementById('mardi').style.display = j==='mardi'?'block':'none';
+  document.getElementById('mercredi').style.display = j==='mercredi'?'block':'none';
+  document.getElementById('btnMardi').className = j==='mardi'?'active':'';
+  document.getElementById('btnMercredi').className = j==='mercredi'?'active':'';
+}
+
+async function load(){
   try{
-    const res = await fetch('https://api.football-data.org/v4/competitions/CL/matches?matchday=5', {
-      headers: { 'X-Auth-Token': API_KEY }
-    });
+    // API gratuite sans clé, qui marche sur GitHub
+    const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/events?dates=20261124-20261125');
     const data = await res.json();
-    document.getElementById('status').innerText = "En direct - Dernière mise à jour: " + new Date().toLocaleTimeString('fr-FR', {timeZone:'GMT'});
-    let html = "";
-    data.matches.forEach(m => {
-      const home = m.homeTeam.name;
-      const away = m.awayTeam.name;
-      const date = new Date(m.utcDate).toLocaleString('fr-FR', {timeZone:'GMT', day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) + " GMT";
-      const live = m.status === 'FINISHED' ? 'Terminé' : m.status === 'IN_PLAY' ? 'EN DIRECT 🔴' : date;
-      const scoreLive = m.score.fullTime.home !== null ? m.score.fullTime.home + " - " + m.score.fullTime.away : "VS";
-      const prono = PRONOS[home] || PRONOS[away] || {prono:"Voir analyse", score:"-"};
-      html += `<div class="card"><div class="top"><span class="teams">${home} - ${away}</span><span class="time">${live}</span></div>
-      <div style="margin-top:8px;display:flex;justify-content:space-between"><span>Score réel: <span class="live-score">${scoreLive}</span></span></div>
-      <div class="prono"><span>🎯 <b>${prono.prono}</b> - Confiance ${prono.conf || ''}</span><span class="score">${prono.score}</span></div></div>`;
+    document.getElementById('status').innerText = "Connecté - " + new Date().toLocaleTimeString('fr-FR',{timeZone:'GMT'}) + " GMT";
+    let mardi="", mercredi="";
+    data.events.forEach(ev=>{
+      const home = ev.competitions[0].competitors[0].team.displayName;
+      const away = ev.competitions[0].competitors[1].team.displayName;
+      const d = new Date(ev.date);
+      const jour = d.getUTCDate() === 24 ? 'mardi' : 'mercredi';
+      const heure = d.toLocaleTimeString('fr-FR',{timeZone:'GMT',hour:'2-digit',minute:'2-digit'}) + " GMT";
+      const status = ev.status.type.state;
+      const stateTxt = status==='post' ? 'Terminé' : status==='in' ? 'EN DIRECT 🔴 ' + ev.status.displayClock : heure;
+      const score = ev.competitions[0].competitors[0].score + " - " + ev.competitions[0].competitors[1].score;
+      const prono = PRONOS[home] || PRONOS[away] || {p:"Analyse à venir", s:"-", c:""};
+      const card = `<div class="card"><div class="top"><span class="teams">${home} - ${away}</span><span class="time">${stateTxt}</span></div><div style="margin-top:8px">Score réel: <span class="live-score">${score}</span></div><div class="prono"><span>🎯 <b>${prono.p}</b> - Confiance ${prono.c}</span><span class="score">${prono.s}</span></div><details class="details"><summary>📊 Voir les stats</summary><p>Forme 5 derniers matchs, buts marqués / encaissés et analyse dans la prochaine mise à jour. Le score réel ci-dessus est déjà automatique.</p></details></div>`;
+      if(jour==='mardi') mardi+=card; else mercredi+=card;
     });
-    document.getElementById('matches').innerHTML = html || "<p>Aucun match trouvé pour cette journée.</p>";
+    document.getElementById('mardi').innerHTML = mardi || "<p>Aucun match mardi.</p>";
+    document.getElementById('mercredi').innerHTML = mercredi || "<p>Aucun match mercredi.</p>";
   }catch(e){
-    document.getElementById('status').innerText = "Mode hors-ligne - Vérifie ta clé API";
-    document.getElementById('matches').innerHTML = "<p style='text-align:center'>Erreur de connexion. Vérifie que ta clé API est bien collée dans le code.</p>";
+    document.getElementById('msg').innerText = "Chargement... réessaie dans 10 secondes.";
   }
 }
-loadMatches();
-setInterval(loadMatches, 60000);
+load();
+setInterval(load, 60000);
 </script>
 </body>
 </html>
