@@ -3,172 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pronostics Europe | DIRECT + VIP</title>
+<title>Neville Pronos | Pronostics, Classements & Stats - Vérifié</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f1f5f9;color:#0f172a;margin:0}
 .header{background:#2563eb;color:white;padding:22px 15px;text-align:center;border-bottom:4px solid #f97316}
 .header h1{margin:0;font-size:24px}
 .header p{margin:6px 0 0;opacity:0.9;font-size:13px}
+.truth-bar{background:#fef3c7;color:#92400e;padding:10px 15px;text-align:center;font-size:12px;font-weight:bold}
 .direct-box{background:#0f172a;color:white;padding:14px 15px}
 .live-dot{width:10px;height:10px;background:#dc2626;border-radius:50%;display:inline-block;animation:blink 1s infinite}
 @keyframes blink{0%{opacity:1}50%{opacity:0.2}100%{opacity:1}}
-.direct-frame{width:100%;height:480px;border:none;border-radius:12px;background:white;margin-top:12px}
-/* 1. BILAN */
-.bilan{display:flex;gap:10px;padding:12px 15px;max-width:650px;margin:0 auto}
-.bilan div{flex:1;background:white;padding:12px;border-radius:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
-.bilan b{font-size:20px;display:block}
-.bilan span{font-size:11px;color:#64748b}
-/* 2. COMBINE */
-.combine{background:linear-gradient(135deg,#f97316,#dc2626);color:white;margin:0 15px;padding:16px;border-radius:14px;max-width:620px;margin:0 auto}
-.combine h3{margin:0 0 8px}
-.combine-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.3);font-size:14px}
-.combine-total{display:flex;justify-content:space-between;margin-top:10px;font-weight:bold;font-size:16px}
-/* 5. TOP */
-.top3{padding:12px 15px;max-width:650px;margin:0 auto}
-.top-card{background:white;border-left:5px solid #facc15;padding:12px;border-radius:12px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.07);display:flex;justify-content:space-between;align-items:center}
-/* 3. VIP */
-.vip{background:#16a34a;color:white;margin:12px 15px;padding:16px;border-radius:14px;text-align:center;max-width:620px;margin:12px auto}
+.direct-card{background:white;color:#0f172a;padding:12px;border-radius:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.direct-score{background:#16a34a;color:white;padding:6px 12px;border-radius:20px;font-weight:bold;font-size:16px}
+.info-box{background:white;padding:14px;border-radius:12px;max-width:620px;margin:12px auto;box-shadow:0 2px 8px rgba(0,0,0,0.07);font-size:13px;line-height:1.5}
+.vip{background:#16a34a;color:white;padding:16px;border-radius:14px;text-align:center;max-width:620px;margin:12px auto}
 .vip a{background:white;color:#16a34a;padding:12px 20px;border-radius:25px;font-weight:bold;text-decoration:none;display:inline-block;margin-top:10px}
-/* 6. FILTRE + RECHERCHE */
+.leagues,.stand-tabs{display:flex;gap:8px;overflow-x:auto;padding:12px 15px;max-width:650px;margin:0 auto;scrollbar-width:none}
+.leagues button,.stand-tabs button{white-space:nowrap;padding:10px 16px;border:none;border-radius:20px;font-weight:bold;cursor:pointer;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.leagues button.active{background:#2563eb;color:white}
+.stand-tabs button.active{background:#0f172a;color:white}
 .filters{padding:0 15px;max-width:650px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap}
 .filters input{flex:1;min-width:140px;padding:11px;border:none;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
 .filters button{padding:11px 14px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:white}
 .filters button.active{background:#2563eb;color:white}
 .tabs{display:flex;gap:10px;padding:15px;max-width:650px;margin:0 auto}
-.tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
-.tabs button.active{background:#2563eb;color:white}
-.container{padding:0 15px 15px;max-width:650px;margin:0 auto}
-.card{background:white;padding:14px;border-radius:14px;margin:12px 0;box-shadow:0 2px 10px rgba(0,0,0,0.07)}
-.top{display:flex;justify-content:space-between;align-items:center}
-.teams{font-weight:bold;font-size:15px}
-.time{background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:12px}
-.prono{margin-top:10px;padding:12px;background:#f8fafc;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
-.badge1{background:#16a34a;color:white;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:14px}
-.badgeX{background:#f59e0b;color:white;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:14px}
-.badge2{background:#2563eb;color:white;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:14px}
-/* 4. VOTE */
-.vote{margin-top:10px;display:flex;gap:6px}
-.vote button{flex:1;padding:9px;border:1px solid #e2e8f0;background:white;border-radius:10px;cursor:pointer;font-weight:bold}
-.vote button.voted{background:#2563eb;color:white;border-color:#2563eb}
-.vote-bar{height:6px;background:#e2e8f0;border-radius:10px;margin-top:6px;overflow:hidden;display:flex}
-.vote-bar div{height:100%}
-details{margin-top:10px;background:#f8fafc;border-radius:10px;padding:10px;font-size:13px}
-summary{font-weight:bold;cursor:pointer;color:#2563eb}
-.stat-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #e2e8f0}
-.forme span{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;color:white;font-size:11px;font-weight:bold;margin-right:2px}
-.W{background:#16a34a}.D{background:#94a3b8}.L{background:#dc2626}
-.footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
-</style>
-</head>
-<body>
-<div class="header"><h1>⚽ PRONOSTICS EUROPE</h1><p>Ligue des Champions - 5e Journée | Heure GMT<br>1N2 - Vainqueur ou Nul</p></div>
-
-<div class="direct-box"><div><span class="live-dot"></span> 🔴 DIRECT - TOUS LES SCORES EN DIRECT</div><iframe class="direct-frame" src="https://www.livescore.com/en/football/live/"></iframe></div>
-
-<!-- 1. BILAN -->
-<div class="bilan">
-<div><b>✅ 7/9</b><span>Hier - Pronostics gagnés</span></div>
-<div><b>78%</b><span>Cette semaine</span></div>
-<div><b>⭐ 14</b><span>Matchs SÛR gagnés</span></div>
-</div>
-
-<!-- 2. COMBINE DU JOUR -->
-<div class="combine">
-<h3>🔥 COMBINÉ DU JOUR - Mardi</h3>
-<div class="combine-row"><span>Arsenal - Dortmund</span><b>1 • 1.45</b></div>
-<div class="combine-row"><span>PSG - Roma (mercredi)</span><b>1 • 1.55</b></div>
-<div class="combine-row"><span>Real Madrid - PSV</span><b>1 • 1.35</b></div>
-<div class="combine-total"><span>Cote totale :</span><span>3.03 💰</span></div>
-<p style="font-size:11px;opacity:0.9;margin:8px 0 0">Mise : 5.000 FC → Gain possible : 15.150 FC - À titre informatif</p>
-</div>
-
-<!-- 5. TOP CONFIANCE -->
-<div class="top3">
-<h3 style="margin:5px 0 10px">🥇 TOP 3 LES PLUS SÛR DU JOUR</h3>
-<div class="top-card"><span>🥇 Sabah - <b>Barça (2)</b></span><b style="color:#16a34a">90% ⭐</b></div>
-<div class="top-card"><span>🥈 PSG - <b>Roma (1)</b></span><b style="color:#16a34a">84% ⭐</b></div>
-<div class="top-card"><span>🥉 Arsenal - <b>Dortmund (1)</b></span><b style="color:#16a34a">82% ⭐</b></div>
-</div>
-
-<!-- 3. VIP WHATSAPP -->
-<div class="vip">
-<h3 style="margin:0">🔒 GROUPE VIP - Pronostics privés</h3>
-<p style="font-size:13px;margin:8px 0">Les pronostics les plus sûrs, envoyés 1h avant les matchs. Places limitées.</p>
-<a href="https://wa.me/243998639866?text=Salut%20Neville%20je%20veux%20rejoindre%20le%20VIP%20Pronostics">📱 Rejoindre le VIP sur WhatsApp</a>
-<p style="font-size:11px;opacity:0.8;margin:8px 0 0">+ 120 membres déjà dans le groupe</p>
-</div>
-
-<div class="tabs"><button id="btnMardi" class="active" onclick="show('mardi')">MARDI 24 NOV</button><button id="btnMercredi" onclick="show('mercredi')">MERCREDI 25 NOV</button></div>
-
-<!-- 6. RECHERCHE + FILTRE -->
-<div class="filters">
-<input id="search" placeholder="🔍 Chercher une équipe... Ex: Arsenal" oninput="filter()">
-<button id="fAll" class="active" onclick="setFilter('all')">Tous</button>
-<button id="fSur" onclick="setFilter('sur')">⭐ SÛR</button>
-<button id="fNul" onclick="setFilter('nul')">Nul</button>
-</div>
-
-<div class="container"><div id="mardi"></div><div id="mercredi" style="display:none"></div><div class="footer">Pronostics à titre informatif - © 2026 Pronostics Europe<br>Ne mise que ce que tu peux perdre.</div></div>
-
-<script>
-let currentFilter='all';
-const DATA = {
-mardi: [
-{teams:"Galatasaray - Aston Villa", time:"17:45 GMT", type:"1", label:"Victoire Galatasaray", conf:"68%", sur:false, forme:"<span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span> vs <span class='W'>V</span><span class='L'>D</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span>", buts:"2.2 vs 1.8", analyse:"Galatasaray invaincu à domicile."},
-{teams:"Arsenal - Dortmund", time:"20:00 GMT", type:"1", label:"Victoire Arsenal", conf:"82% ⭐ SÛR", sur:true, forme:"<span class='W'>V</span><span class='W'>V</span><span class='W'>V</span><span class='W'>V</span><span class='D'>N</span> vs <span class='W'>V</span><span class='D'>N</span><span class='L'>D</span><span class='W'>V</span><span class='D'>N</span>", buts:"2.4 vs 1.9", analyse:"Arsenal meilleure défense d'Europe."},
-{teams:"Man City - Naples", time:"20:00 GMT", type:"1", label:"Victoire City", conf:"78%", sur:false, forme:"<span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span> vs <span class='L'>D</span><span class='D'>N</span><span class='W'>V</span><span class='L'>D</span><span class='D'>N</span>", buts:"2.6 vs 1.3", analyse:"City ultra-dominant à l'Etihad."},
-{teams:"Real Madrid - PSV", time:"20:00 GMT", type:"1", label:"Victoire Real", conf:"80%", sur:true, forme:"<span class='W'>V</span><span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span> vs <span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='L'>D</span><span class='W'>V</span>", buts:"2.5 vs 1.8", analyse:"Le Bernabéu est une forteresse."},
-{teams:"RB Leipzig - Lens", time:"20:00 GMT", type:"1", label:"Victoire Leipzig", conf:"62%", sur:false, forme:"<span class='W'>V</span><span class='L'>D</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span> vs <span class='D'>N</span><span class='W'>V</span><span class='L'>D</span><span class='D'>N</span><span class='W'>V</span>", buts:"1.9 vs 1.4", analyse:"Avantage domicile."},
-{teams:"Feyenoord - Porto", time:"20:00 GMT", type:"N", label:"Match Nul", conf:"55%", sur:false, forme:"<span class='D'>N</span><span class='W'>V</span><span class='L'>D</span><span class='D'>N</span><span class='W'>V</span> vs <span class='W'>V</span><span class='D'>N</span><span class='D'>N</span><span class='L'>D</span><span class='W'>V</span>", buts:"1.6 vs 1.5", analyse:"Deux équipes très proches."},
-{teams:"Bodø/Glimt - LASK", time:"17:45 GMT", type:"1", label:"Victoire Bodø/Glimt", conf:"71%", sur:false, forme:"<span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span> vs <span class='L'>D</span><span class='L'>D</span><span class='D'>N</span><span class='W'>V</span><span class='L'>D</span>", buts:"2.1 vs 1.0", analyse:"Bodø très fort à domicile."},
-{teams:"Como - AEK Athènes", time:"20:00 GMT", type:"1", label:"Victoire Como", conf:"66%", sur:false, forme:"<span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span><span class='D'>N</span> vs <span class='L'>D</span><span class='W'>V</span><span class='L'>D</span><span class='D'>N</span><span class='L'>D</span>", buts:"1.8 vs 1.1", analyse:"Como en pleine confiance."},
-{teams:"Slovan - Real Betis", time:"20:00 GMT", type:"2", label:"Victoire Betis", conf:"74%", sur:false, forme:"<span class='L'>D</span><span class='L'>D</span><span class='D'>N</span><span class='L'>D</span><span class='W'>V</span> vs <span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span>", buts:"0.9 vs 2.0", analyse:"Betis largement supérieur."}
-],
-mercredi: [
-{teams:"PSG - AS Roma", time:"20:00 GMT", type:"1", label:"Victoire PSG", conf:"84% ⭐ SÛR", sur:true, forme:"<span class='W'>V</span><span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span> vs <span class='W'>V</span><span class='D'>N</span><span class='L'>D</span><span class='W'>V</span><span class='D'>N</span>", buts:"2.5 vs 1.4", analyse:"PSG intouchable au Parc."},
-{teams:"Sabah - FC Barcelone", time:"17:45 GMT", type:"2", label:"Victoire Barça", conf:"90% ⭐ SÛR", sur:true, forme:"<span class='L'>D</span><span class='D'>N</span><span class='L'>D</span><span class='W'>V</span><span class='L'>D</span> vs <span class='W'>V</span><span class='W'>V</span><span class='W'>V</span><span class='W'>V</span><span class='D'>N</span>", buts:"0.8 vs 3.0", analyse:"Écart énorme."},
-{teams:"Lille - Bayern Munich", time:"20:00 GMT", type:"2", label:"Victoire Bayern", conf:"76%", sur:false, forme:"<span class='W'>V</span><span class='D'>N</span><span class='L'>D</span><span class='W'>V</span><span class='D'>N</span> vs <span class='W'>V</span><span class='W'>V</span><span class='W'>V</span><span class='W'>V</span><span class='W'>V</span>", buts:"1.5 vs 3.1", analyse:"Bayern machine offensive."},
-{teams:"Club Bruges - Liverpool", time:"20:00 GMT", type:"2", label:"Victoire Liverpool", conf:"69%", sur:false, forme:"<span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='L'>D</span><span class='W'>V</span> vs <span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span><span class='L'>D</span>", buts:"1.7 vs 2.0", analyse:"Bruges piège à domicile."},
-{teams:"Sporting - Man United", time:"20:00 GMT", type:"N", label:"Match Nul", conf:"58%", sur:false, forme:"<span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='D'>N</span> vs <span class='D'>N</span><span class='W'>V</span><span class='L'>D</span><span class='D'>N</span><span class='W'>V</span>", buts:"1.8 vs 1.6", analyse:"United instable."},
-{teams:"Inter - Stuttgart", time:"20:00 GMT", type:"1", label:"Victoire Inter", conf:"73%", sur:false, forme:"<span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span> vs <span class='D'>N</span><span class='L'>D</span><span class='W'>V</span><span class='D'>N</span><span class='L'>D</span>", buts:"1.9 vs 1.4", analyse:"Inter solide à San Siro."},
-{teams:"Atlético Madrid - Viking", time:"20:00 GMT", type:"1", label:"Victoire Atlético", conf:"77%", sur:false, forme:"<span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span><span class='W'>V</span> vs <span class='L'>D</span><span class='D'>N</span><span class='W'>V</span><span class='L'>D</span><span class='D'>N</span>", buts:"1.9 vs 1.2", analyse:"Atlético ne perd presque jamais à domicile."},
-{teams:"Slavia Prague - Villarreal", time:"17:45 GMT", type:"N", label:"Match Nul", conf:"56%", sur:false, forme:"<span class='W'>V</span><span class='D'>N</span><span class='D'>N</span><span class='W'>V</span><span class='D'>N</span> vs <span class='D'>N</span><span class='W'>V</span><span class='D'>N</span><span class='D'>N</span><span class='W'>V</span>", buts:"1.5 vs 1.5", analyse:"Deux équipes qui font beaucoup de nuls."},
-{teams:"Shakhtar - Fenerbahçe", time:"20:00 GMT", type:"2", label:"Victoire Fenerbahçe", conf:"64%", sur:false, forme:"<span class='L'>D</span><span class='D'>N</span><span class='W'>V</span><span class='L'>D</span><span class='D'>N</span> vs <span class='W'>V</span><span class='W'>V</span><span class='D'>N</span><span class='W'>V</span><span class='W'>V</span>", buts:"1.2 vs 2.0", analyse:"Fenerbahçe en grande forme."}
-]
-};
-function badge(t){ if(t==='1') return '<span class="badge1">1 - Domicile</span>'; if(t==='N') return '<span class="badgeX">N - Nul</span>'; return '<span class="badge2">2 - Extérieur</span>'; }
-function render(){
-  ['mardi','mercredi'].forEach(jour=>{
-    let html="";
-    DATA[jour].forEach((m,i)=>{
-      const id = jour+'-'+i;
-      html+=`<div class="card" data-teams="${m.teams.toLowerCase()}" data-sur="${m.sur}" data-nul="${m.type==='N'}"><div class="top"><span class="teams">${m.teams}</span><span class="time">${m.time}</span></div><div class="prono"><span>🎯 <b>${m.label}</b><br><span style="color:#2563eb;font-size:11px;font-weight:bold">Confiance: ${m.conf}</span></span>${badge(m.type)}</div><div class="vote"><button onclick="vote('${id}',this,'1')">1 - ${m.teams.split(' - ')[0]}</button><button onclick="vote('${id}',this,'N')">N - Nul</button><button onclick="vote('${id}',this,'2')">2 - ${m.teams.split(' - ')[1]}</button></div><div style="font-size:11px;color:#64748b;margin-top:5px" id="vote-txt-${id}">👥 Vote : 64% pensent comme le pronostic</div><div class="vote-bar"><div style="width:64%;background:#16a34a"></div><div style="width:20%;background:#f59e0b"></div><div style="width:16%;background:#2563eb"></div></div><details><summary>📊 Voir les stats</summary><div class="stat-row"><span>Forme 5 derniers</span><span class="forme">${m.forme}</span></div><div class="stat-row"><span>Buts / match</span><span>${m.buts}</span></div><div class="stat-row"><span>Analyse</span><span>${m.analyse}</span></div></details></div>`;
-    });
-    document.getElementById(jour).innerHTML=html;
-  });
-}
-render();
-function vote(id,btn,choice){
-  const parent = btn.parentElement;
-  parent.querySelectorAll('button').forEach(b=>b.classList.remove('voted'));
-  btn.classList.add('voted');
-  document.getElementById('vote-txt-'+id).innerText = "✅ Merci pour ton vote : " + (choice==='1'?'Victoire domicile':choice==='N'?'Match Nul':'Victoire extérieur') + " - Ton vote est enregistré !";
-}
-function show(j){ document.getElementById('mardi').style.display=j==='mardi'?'block':'none'; document.getElementById('mercredi').style.display=j==='mercredi'?'block':'none'; document.getElementById('btnMardi').className=j==='mardi'?'active':''; document.getElementById('btnMercredi').className=j==='mercredi'?'active':''; }
-function setFilter(f){ currentFilter=f; document.getElementById('fAll').className=f==='all'?'active':''; document.getElementById('fSur').className=f==='sur'?'active':''; document.getElementById('fNul').className=f==='nul'?'active':''; filter(); }
-function filter(){
-  const q = document.getElementById('search').value.toLowerCase();
-  document.querySelectorAll('.card').forEach(card=>{
-    const teams = card.getAttribute('data-teams');
-    const sur = card.getAttribute('data-sur')==='true';
-    const nul = card.getAttribute('data-nul')==='true';
-    let ok = teams.includes(q);
-    if(currentFilter==='sur' && !sur) ok=false;
-    if(currentFilter==='nul' && !nul) ok=false;
-    card.style.display = ok ? 'block' : 'none';
-  });
-}
-</script>
-</body>
-</html>
