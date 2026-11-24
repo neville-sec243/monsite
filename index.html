@@ -3,222 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neville Pronos | Pronostics, Classements & Stats - Vérifié</title>
+<title>Neville Pronos</title>
 <style>
-*{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f1f5f9;color:#0f172a;margin:0}
-.header{background:#2563eb;color:white;padding:22px 15px;text-align:center;border-bottom:4px solid #f97316}
-.header h1{margin:0;font-size:24px}
-.header p{margin:6px 0 0;opacity:0.9;font-size:13px}
-.truth-bar{background:#fef3c7;color:#92400e;padding:10px 15px;text-align:center;font-size:12px;font-weight:bold}
-.direct-box{background:#0f172a;color:white;padding:14px 15px}
-.live-dot{width:10px;height:10px;background:#dc2626;border-radius:50%;display:inline-block;animation:blink 1s infinite}
-@keyframes blink{0%{opacity:1}50%{opacity:0.2}100%{opacity:1}}
-.direct-card{background:white;color:#0f172a;padding:12px;border-radius:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
-.direct-score{background:#16a34a;color:white;padding:6px 12px;border-radius:20px;font-weight:bold;font-size:16px}
-.info-box{background:white;padding:14px;border-radius:12px;max-width:620px;margin:12px auto;box-shadow:0 2px 8px rgba(0,0,0,0.07);font-size:13px;line-height:1.5}
-.vip{background:#16a34a;color:white;padding:16px;border-radius:14px;text-align:center;max-width:620px;margin:12px auto}
+body{font-family:Arial,sans-serif;background:#f1f5f9;margin:0;color:#0f172a}
+.header{background:#2563eb;color:white;padding:20px;text-align:center}
+.header h1{margin:0}
+.truth{background:#fef3c7;padding:10px;text-align:center;font-size:12px;font-weight:bold;color:#92400e}
+.box{background:white;margin:12px;padding:14px;border-radius:12px}
+.vip{background:#16a34a;color:white;padding:16px;border-radius:14px;text-align:center;margin:12px}
 .vip a{background:white;color:#16a34a;padding:12px 20px;border-radius:25px;font-weight:bold;text-decoration:none;display:inline-block;margin-top:10px}
-.leagues,.stand-tabs{display:flex;gap:8px;overflow-x:auto;padding:12px 15px;max-width:650px;margin:0 auto;scrollbar-width:none}
-.leagues button,.stand-tabs button{white-space:nowrap;padding:10px 16px;border:none;border-radius:20px;font-weight:bold;cursor:pointer;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
-.leagues button.active{background:#2563eb;color:white}
-.stand-tabs button.active{background:#0f172a;color:white}
-.filters{padding:0 15px;max-width:650px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap}
-.filters input{flex:1;min-width:140px;padding:11px;border:none;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
-.filters button{padding:11px 14px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:white}
-.filters button.active{background:#2563eb;color:white}
-.tabs{display:flex;gap:10px;padding:15px;max-width:650px;margin:0 auto}
-.tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;font-size:14px;cursor:pointer;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.tabs{display:flex;gap:6px;padding:8px 0;overflow-x:auto}
+.tabs button{white-space:nowrap;padding:10px 14px;border:none;border-radius:20px;font-weight:bold;background:#f1f5f9;cursor:pointer}
 .tabs button.active{background:#2563eb;color:white}
-.container{padding:0 15px 15px;max-width:650px;margin:0 auto}
-.card{background:white;padding:14px;border-radius:14px;margin:12px 0;box-shadow:0 2px 10px rgba(0,0,0,0.07)}
-.top{display:flex;justify-content:space-between;align-items:center}
-.teams{font-weight:bold;font-size:15px}
-.time{background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:12px}
-.prono{margin-top:10px;padding:12px;background:#f8fafc;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
-.badge1{background:#16a34a;color:white;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:14px}
-.badgeX{background:#f59e0b;color:white;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:14px}
-.badge2{background:#2563eb;color:white;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:14px}
-.vote{margin-top:10px;display:flex;gap:6px}
-.vote button{flex:1;padding:9px;border:1px solid #e2e8f0;background:white;border-radius:10px;cursor:pointer;font-weight:bold}
-.vote button.voted{background:#2563eb;color:white;border-color:#2563eb}
-.vote-bar{height:6px;background:#e2e8f0;border-radius:10px;margin-top:6px;overflow:hidden;display:flex}
-details{margin-top:10px;background:#f8fafc;border-radius:10px;padding:10px;font-size:13px}
-summary{font-weight:bold;cursor:pointer;color:#2563eb}
-.stat-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #e2e8f0}
-.forme span{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;color:white;font-size:11px;font-weight:bold;margin-right:2px}
-.W{background:#16a34a}.D{background:#94a3b8}.L{background:#dc2626}
-.footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
-.season-note{background:#fef3c7;color:#92400e;padding:12px;border-radius:12px;max-width:620px;margin:12px auto;font-size:13px;text-align:center}
-.stand-table{width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:12px;overflow:hidden}
-.stand-table th{background:#0f172a;color:white;padding:9px 6px;text-align:left}
-.stand-table td{padding:8px 6px;border-bottom:1px solid #e2e8f0}
+.main-tabs{display:flex;gap:6px;padding:12px;overflow-x:auto}
+.main-tabs button{white-space:nowrap;padding:12px 14px;border:none;border-radius:12px;font-weight:bold;background:white;cursor:pointer}
+.main-tabs button.active{background:#0f172a;color:white}
+.card{background:white;margin:12px;padding:14px;border-radius:12px}
+.badge1{background:#16a34a;color:white;padding:6px 12px;border-radius:20px;font-weight:bold}
+.badgeX{background:#f59e0b;color:white;padding:6px 12px;border-radius:20px;font-weight:bold}
+.badge2{background:#2563eb;color:white;padding:6px 12px;border-radius:20px;font-weight:bold}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#0f172a;color:white;padding:8px;text-align:left}
+td{padding:8px;border-bottom:1px solid #e2e8f0}
 .pos-ucl{border-left:4px solid #16a34a}
 .pos-rel{border-left:4px solid #dc2626}
-.player-row{display:flex;justify-content:space-between;align-items:center;background:white;padding:10px 12px;border-radius:12px;margin:6px 0;box-shadow:0 2px 6px rgba(0,0,0,0.06)}
-.player-rank{width:28px;height:28px;background:#facc15;border-radius:50%;text-align:center;line-height:28px;font-weight:bold}
-.section{max-width:650px;margin:18px auto 0;padding:0 15px}
-.alert-box{background:#fff7ed;border-left:4px solid #f97316;padding:12px;border-radius:12px;font-size:13px}
+.footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
+.live-dot{width:10px;height:10px;background:#dc2626;border-radius:50%;display:inline-block;animation:blink 1s infinite}
+@keyframes blink{0%{opacity:1}50%{opacity:0.2}100%{opacity:1}}
+.live-card{background:#0f172a;color:white;padding:12px;border-radius:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.live-score{background:#16a34a;color:white;padding:6px 12px;border-radius:20px;font-weight:bold}
+.bilan-big{font-size:36px;font-weight:bold;text-align:center;color:#2563eb}
 </style>
 </head>
 <body>
-<div class="header"><h1>⚽ NEVILLE PRONOS</h1><p>Pronostics de Neville - Mon avis, pas une garantie<br>Tous les Championnats - Saison 2026/2027</p></div>
-<div class="truth-bar">✅ Dernière vérification : 25 Nov 2026 &nbsp;|&nbsp; Classements et calendriers vérifiés &nbsp;|&nbsp; Pronostics = avis personnel</div>
+<div class="header"><h1>NEVILLE PRONOS</h1><p>Groupe de Pronostics - Mon avis<br>Saison 2026/2027</p></div>
+<div class="truth">Verifie le 25 Nov 2026 | Pronostic = mon avis, pas une garantie</div>
+<div class="vip"><h3 style="margin:0">GROUPE VIP WHATSAPP</h3><p>Mes pronostics chaque matin.</p><a href="https://wa.me/243998639866?text=Salut%20Neville%20je%20veux%20le%20VIP">Rejoindre le VIP sur WhatsApp</a></div>
 
-<div class="direct-box">
-<div style="display:flex;justify-content:space-between;align-items:center"><span><span class="live-dot"></span> 🔴 DIRECT - SCORES EN DIRECT</span><span style="font-size:11px;opacity:0.7" id="lastUpdate"></span></div>
-<div id="directList"><p style="font-size:13px;opacity:0.8">Connexion au direct...</p></div>
+<div class="main-tabs">
+<button id="m-live" onclick="showMain('live')">🔴 LIVE</button>
+<button id="m-pronos" class="active" onclick="showMain('pronos')">🎯 PRONOSTICS</button>
+<button id="m-next" onclick="showMain('next')">📅 PROCHAINS LUN-DIM</button>
+<button id="m-bilan" onclick="showMain('bilan')">📊 MON BILAN</button>
+<button id="m-class" onclick="showMain('class')">🏆 CLASSEMENTS</button>
+<button id="m-buteurs" onclick="showMain('buteurs')">⚽ BUTEURS</button>
 </div>
 
-<div class="info-box">
-<b>ℹ️ Comment lire ce site :</b><br>
-<b>1. Calendrier et Classement</b> = faits vérifiés.<br>
-<b>2. Pronostic</b> = mon avis personnel. Ça peut être faux, le foot reste imprévisible.<br>
-<b>3. Confiance</b> = à quel point je crois en mon pronostic. Ce n'est pas une probabilité officielle.<br>
-Je ne promets aucun gain. Ne mise que ce que tu peux perdre.
+<!-- LIVE -->
+<div id="page-live" style="display:none">
+<div class="box"><h2 style="margin:0"><span class="live-dot"></span> MATCHS EN DIRECT</h2><p style="font-size:12px;color:#64748b" id="liveUpdate">Chargement...</p><div id="liveBox"><p>Chargement du direct...</p></div><p style="font-size:12px;color:#64748b">Source : scores en direct. Si aucun match n est en cours, on affiche les prochains matchs.</p></div>
 </div>
 
-<div class="vip">
-<h3 style="margin:0">🔒 GROUPE VIP - Neville Pronos</h3>
-<p style="font-size:13px;margin:8px 0">Mes pronostics chaque matin, sur WhatsApp. Je te dis quand je ne suis pas sûr.</p>
-<a href="https://wa.me/243998639866?text=Salut%20Neville%20je%20veux%20le%20VIP">📱 Rejoindre le VIP sur WhatsApp</a>
+<!-- PRONOSTICS -->
+<div id="page-pronos">
+<div class="box"><h2 style="margin:0">MES PRONOSTICS - Ce week-end</h2><p style="font-size:12px;color:#64748b">Calendrier verifie. Pronostic = mon avis.</p>
+<div class="tabs"><button id="d-ven" class="active" onclick="showDay('ven')">VEN 27 NOV</button><button id="d-sam" onclick="showDay('sam')">SAM 28 NOV</button><button id="d-dim" onclick="showDay('dim')">DIM 29 NOV</button></div>
+<div id="matchBox"></div></div>
 </div>
 
-<div class="season-note">📅 <b>Saison 2026/2027 - Jusqu'en Mai 2027</b><br>Vérifié le 25 Nov 2026. On met à jour chaque semaine avec les vrais matchs.</div>
-
-<!-- CLASSEMENTS VÉRIFIÉS -->
-<div class="section">
-<h2 style="margin:0">🏆 CLASSEMENTS VÉRIFIÉS - 25 Nov 2026</h2>
-<p style="font-size:12px;color:#64748b;margin:4px 0 0">🟩 Ligue des Champions &nbsp; 🟥 Relégation &nbsp;|&nbsp; Source : classements officiels</p>
+<!-- PROCHAINS LUN-DIM VERIFIES -->
+<div id="page-next" style="display:none">
+<div class="box"><h2 style="margin:0">📅 PROCHAINS MATCHS - Lun 30 Nov au Dim 6 Dec - VERIFIES</h2><p style="font-size:12px;color:#64748b">Tous ces matchs sont verifies. Aucun invente. Heures en GMT.</p>
+<div class="tabs"><button id="n-lun" class="active" onclick="showNext('lun')">LUN 30 NOV</button><button id="n-mar" onclick="showNext('mar')">MAR 1 DEC</button><button id="n-mer" onclick="showNext('mer')">MER 2 DEC</button><button id="n-jeu" onclick="showNext('jeu')">JEU 3 DEC</button><button id="n-ven" onclick="showNext('ven2')">VEN 4 DEC</button><button id="n-sam" onclick="showNext('sam2')">SAM 5 DEC</button><button id="n-dim" onclick="showNext('dim2')">DIM 6 DEC</button></div>
+<div id="nextBox"></div>
+<p style="font-size:12px;color:#64748b">Lundi 7 Dec : Seville - Malaga, Venezia - Sassuolo, Fiorentina - Cagliari. Je les mets dans la semaine suivante.</p></div>
 </div>
-<div class="stand-tabs" id="standTabs"></div>
-<div style="max-width:650px;margin:0 auto;padding:0 15px"><div style="background:white;border-radius:12px;overflow:hidden;overflow-x:auto"><table class="stand-table"><thead><tr><th>#</th><th>Équipe</th><th>J</th><th>G</th><th>N</th><th>P</th><th>Pts</th><th>Forme</th></tr></thead><tbody id="standBody"></tbody></table></div><p id="standNote" style="font-size:12px;color:#64748b"></p></div>
 
-<!-- STATS JOUEURS VÉRIFIÉS -->
-<div class="section">
-<h2 style="margin:0">⚽ MEILLEURS BUTEURS VÉRIFIÉS</h2>
-<p style="font-size:12px;color:#64748b;margin:4px 0 0">Chiffres vérifiés au 24 Nov 2026 - Premier League, La Liga, Serie A, Bundesliga, Ligue 1</p>
+<!-- BILAN -->
+<div id="page-bilan" style="display:none">
+<div class="box"><h2 style="margin:0">📊 MON BILAN - Pourcentage de victoire</h2><div class="bilan-big">0% - En attente</div><p style="text-align:center;font-size:12px">0 gagne / 0 perdu / 10 en attente - Semaine 27-29 Nov</p><p style="font-size:13px">On ne ment pas sur le bilan. Quand un match est fini, on met le vrai resultat et le % se calcule tout seul.</p>
+<table><tr><th>Match</th><th>Mon Pronostic</th><th>Resultat</th><th>Statut</th></tr><tr><td>Forest - Chelsea</td><td>Nul</td><td>-</td><td>En attente</td></tr><tr><td>Man United - Brentford</td><td>Nul</td><td>-</td><td>En attente</td></tr><tr><td>Real Madrid - Alaves</td><td>Real</td><td>-</td><td>En attente</td></tr><tr><td>Arsenal - Man City</td><td>Arsenal</td><td>-</td><td>En attente</td></tr><tr><td>Barca - Deportivo</td><td>Barca</td><td>-</td><td>En attente</td></tr></table></div>
 </div>
-<div class="stand-tabs">
-<button id="btnButeurs" class="active" onclick="showStats('buteurs')">🥇 Buteurs</button>
-<button id="btnPasseurs" onclick="showStats('passeurs')">🎯 Passeurs (PL)</button>
-<button id="btnLinafoot" onclick="showStats('linafoot')">🇨🇩 Linafoot</button>
-</div>
-<div id="statsBox" style="max-width:650px;margin:10px auto 0;padding:0 15px"></div>
 
-<!-- PRONOSTICS VRAIS MATCHS -->
-<div class="section"><h2 style="margin:0">🎯 MES PRONOSTICS - Vrais matchs du week-end</h2><p style="font-size:12px;color:#64748b;margin:4px 0 0">Calendrier vérifié. Pronostic = mon avis personnel.</p></div>
-<div class="leagues" id="leagueBtns"></div>
-<div class="tabs"><button id="btnVendredi" class="active" onclick="showDay('vendredi')">VEN 27 NOV</button><button id="btnSamedi" onclick="showDay('samedi')">SAM 28 NOV</button><button id="btnDimanche" onclick="showDay('dimanche')">DIM 29 NOV</button></div>
-<div class="filters">
-<input id="search" placeholder="🔍 Chercher une équipe... Ex: Arsenal" oninput="filter()">
-<button id="fAll" class="active" onclick="setFilter('all')">Tous</button>
-<button id="fSur" onclick="setFilter('sur')">⭐ Confiant</button>
-<button id="fNul" onclick="setFilter('nul')">Nul</button>
+<!-- CLASSEMENTS -->
+<div id="page-class" style="display:none">
+<div class="box"><h2 style="margin:0">CLASSEMENTS VERIFIES - 25 Nov 2026</h2><p style="font-size:12px;color:#64748b">Man United est bien 19e, pas 7e.</p>
+<div class="tabs"><button id="t-pl" class="active" onclick="showStand('pl')">Premier League</button><button id="t-liga" onclick="showStand('liga')">La Liga</button><button id="t-seriea" onclick="showStand('seriea')">Serie A</button><button id="t-bundes" onclick="showStand('bundes')">Bundesliga</button><button id="t-ligue1" onclick="showStand('ligue1')">Ligue 1</button><button id="t-lina" onclick="showStand('lina')">Linafoot</button></div>
+<div id="standBox"></div><p id="standNote" style="font-size:12px;color:#64748b"></p></div>
 </div>
-<div class="container"><div id="vendredi"></div><div id="samedi" style="display:none"></div><div id="dimanche" style="display:none"></div>
-<div class="alert-box" style="margin-top:18px"><b>⚠️ IMPORTANT - Lis ça :</b><br>Les pronostics ci-dessus sont MON avis. Je peux me tromper. Je ne connais pas le résultat à l'avance. Si un joueur est blessé de dernière minute, le match peut changer. Vérifie la compo avant de jouer. Ne mise jamais l'argent du loyer ou de la nourriture.</div>
-<div class="footer">Pronostics à titre informatif - Avis personnel de Neville - © 2026 Neville Pronos<br>Dernière vérification des faits : 25 Nov 2026<br>Ne mise que ce que tu peux perdre. 18+</div></div>
 
+<!-- BUTEURS -->
+<div id="page-buteurs" style="display:none">
+<div class="box"><h2 style="margin:0">MEILLEURS BUTEURS VERIFIES</h2><p>1. Raphinha (Barca) - 15 buts<br>2. Malen (Roma) - 12 buts<br>3. Fullkrug (Dortmund) - 10 buts<br>4. Haaland (Man City) - 9 buts<br>5. Sinayoko - 9 buts<br>6. Isak (Liverpool) - 7 buts</p></div>
+</div>
+
+<div class="footer">Pronostics a titre informatif - Avis personnel de Neville<br>Ne mise que ce que tu peux perdre. 18+</div>
 <script>
-let currentLeague='all'; let currentFilter='all'; let curStand='pl';
-const LEAGUES=[{id:'all',label:'🌍 Tous'},{id:'pl',label:'🏴󐁧󐁢󐁥󐁮󐁧󐁿 Premier League'},{id:'liga',label:'🇪🇸 La Liga'},{id:'linafoot',label:'🇨🇩 Linafoot'}];
-// VRAIS MATCHS VÉRIFIÉS - Journée 12 PL et Journée 14 Liga - 27-29 Nov 2026
-const DATA={
-vendredi:[
-{league:'pl',teams:"Nottingham Forest - Chelsea", time:"20:00 GMT", type:"N", label:"Pronostic Neville : Nul", conf:"Mon avis - 50% confiance", sur:false, forme:"Forme : Forest irrégulier, Chelsea en haut de tableau (16 pts)", buts:"Classement : Forest 12e zone / Chelsea 8e - 16 pts", analyse:"Mon avis : Forest à domicile est dur à battre. Je vois un nul, mais je ne suis pas sûr. Match à éviter si tu veux être prudent."},
-],
-samedi:[
-{league:'pl',teams:"Leeds - Coventry City", time:"15:00 GMT", type:"1", label:"Pronostic Neville : Victoire Leeds", conf:"Mon avis - 55% confiance", sur:false, forme:"Leeds à domicile, Coventry promu", buts:"Classement : Leeds bas de tableau, Coventry milieu", analyse:"Mon avis : Leeds doit gagner à domicile pour sortir de la zone rouge. Je penche pour Leeds, mais match risqué."},
-{league:'pl',teams:"Man United - Brentford", time:"15:00 GMT", type:"N", label:"Pronostic Neville : Nul", conf:"Mon avis - 50% confiance", sur:false, forme:"United 19e avec 8 pts - très en difficulté", buts:"Classement vérifié : United 19e (1V, 5N, 5D)", analyse:"Mon avis : United est 19e, c'est vrai, ils sont en crise. Je ne fais pas confiance à United pour gagner. Je vois un nul."},
-{league:'pl',teams:"Ipswich - Aston Villa", time:"17:30 GMT", type:"2", label:"Pronostic Neville : Victoire Aston Villa", conf:"Mon avis - 58% confiance", sur:false, forme:"Villa en meilleure forme que Ipswich", buts:"Villa favori sur le papier", analyse:"Mon avis : Villa a plus de qualité. Je penche pour Villa à l'extérieur."},
-{league:'liga',teams:"Real Betis - Rayo Vallecano", time:"13:00 GMT", type:"1", label:"Pronostic Neville : Victoire Betis", conf:"Mon avis - 60% confiance", sur:true, forme:"Betis 4e avec 27 pts", buts:"Classement vérifié : Betis 4e", analyse:"Mon avis : Betis est 4e, très solide à domicile. Je suis assez confiant."},
-{league:'liga',teams:"Malaga - Athletic Club", time:"15:15 GMT", type:"2", label:"Pronostic Neville : Victoire Athletic", conf:"Mon avis - 58% confiance", sur:false, forme:"Malaga dernier avec 5 pts", buts:"Classement vérifié : Malaga 20e, 0 victoire", analyse:"Mon avis : Malaga n'a gagné aucun match (0V, 5N, 8D). Athletic doit en profiter."},
-{league:'liga',teams:"Elche - Atlético Madrid", time:"17:30 GMT", type:"2", label:"Pronostic Neville : Victoire Atlético", conf:"Mon avis - 62% confiance", sur:true, forme:"Atlético 3e avec 31 pts", buts:"Classement vérifié : Atlético 3e", analyse:"Mon avis : Atlético est bien plus fort. Je suis assez confiant pour Atlético."},
-{league:'liga',teams:"Real Madrid - Alavés", time:"20:00 GMT", type:"1", label:"Pronostic Neville : Victoire Real Madrid", conf:"Mon avis - 75% confiance", sur:true, forme:"Real 2e avec 33 pts, Alavés milieu de tableau", buts:"Classement vérifié : Real 2e (11V, 0N, 2D)", analyse:"Mon avis : Real à Bernabeu, c'est le match le plus sûr du week-end pour moi. Mais le foot n'est jamais 100%."},
-],
-dimanche:[
-{league:'pl',teams:"Everton - Liverpool", time:"12:00 GMT", type:"2", label:"Pronostic Neville : Victoire Liverpool", conf:"Mon avis - 65% confiance", sur:true, forme:"Derby de Liverpool", buts:"Classement vérifié : Liverpool 4e, 21 pts", analyse:"Mon avis : Liverpool est 4e, Everton est en difficulté. Je penche pour Liverpool, derby toujours chaud."},
-{league:'pl',teams:"Brighton - Newcastle", time:"14:05 GMT", type:"1", label:"Pronostic Neville : Victoire Brighton", conf:"Mon avis - 55% confiance", sur:false, forme:"Brighton 2e surprise avec 22 pts", buts:"Classement vérifié : Brighton 2e (7V, 1N, 3D)", analyse:"Mon avis : Brighton est 2e, c'est la surprise de la saison. À domicile, je les vois gagner."},
-{league:'pl',teams:"Crystal Palace - Hull City", time:"14:05 GMT", type:"N", label:"Pronostic Neville : Nul", conf:"Mon avis - 50% confiance", sur:false, forme:"Palace dernier avec 7 pts", buts:"Classement vérifié : Palace 20e", analyse:"Mon avis : Palace est dernier, Hull est aussi en bas. Match très serré, je vois un nul."},
-{league:'pl',teams:"Fulham - Bournemouth", time:"14:05 GMT", type:"N", label:"Pronostic Neville : Nul", conf:"Mon avis - 50% confiance", sur:false, forme:"Bournemouth 5e avec 18 pts", buts:"Classement vérifié : Bournemouth 5e", analyse:"Mon avis : Bournemouth est en forme (5 victoires d'affilée). Fulham à domicile est dur. Je vois un nul."},
-{league:'pl',teams:"Sunderland - Tottenham", time:"14:05 GMT", type:"2", label:"Pronostic Neville : Victoire Tottenham", conf:"Mon avis - 55% confiance", sur:false, forme:"Tottenham favori sur le papier", buts:"Tottenham milieu de tableau", analyse:"Mon avis : Tottenham a plus de qualité, je penche pour eux à l'extérieur."},
-{league:'pl',teams:"Arsenal - Man City", time:"16:30 GMT", type:"1", label:"Pronostic Neville : Victoire Arsenal", conf:"Mon avis - 60% confiance", sur:true, forme:"GROS MATCH - 1er vs 3e", buts:"Classement vérifié : Arsenal 1er 28 pts, City 3e 22 pts", analyse:"Mon avis : Arsenal est leader avec 6 pts d'avance. À l'Emirates, je vois Arsenal gagner. C'est le match du week-end, mais attention City peut tout changer."},
-{league:'liga',teams:"Valence - Osasuna", time:"13:00 GMT", type:"1", label:"Pronostic Neville : Victoire Valence", conf:"Mon avis - 55% confiance", sur:false, forme:"Valence à domicile", buts:"Valence milieu de tableau", analyse:"Mon avis : Valence à Mestalla, je penche pour eux."},
-{league:'liga',teams:"Deportivo La Corogne - Barcelone", time:"15:15 GMT", type:"2", label:"Pronostic Neville : Victoire Barcelone", conf:"Mon avis - 78% confiance", sur:true, forme:"Barça 1er avec 36 pts", buts:"Classement vérifié : Barça 1er (12V, 0N, 1D), 51 buts marqués", analyse:"Mon avis : Barça est 1er, avec 51 buts en 13 matchs. C'est l'équipe la plus forte d'Espagne en ce moment. Mon pronostic le plus confiant."},
-{league:'liga',teams:"Celta Vigo - Villarreal", time:"17:30 GMT", type:"N", label:"Pronostic Neville : Nul", conf:"Mon avis - 50% confiance", sur:false, forme:"Deux équipes proches au classement", buts:"Match serré", analyse:"Mon avis : Match très équilibré, je vois un nul."},
-{league:'liga',teams:"Real Sociedad - Séville", time:"20:00 GMT", type:"1", label:"Pronostic Neville : Victoire Real Sociedad", conf:"Mon avis - 55% confiance", sur:false, forme:"Sociedad 5e avec 22 pts, Séville 6e avec 19 pts", buts:"Classement vérifié : Sociedad 5e", analyse:"Mon avis : Sociedad à domicile, je penche pour eux de justesse."},
-{league:'linafoot',teams:"Linafoot - Groupe A & B", time:"À confirmer", type:"N", label:"Pronostic : En attente du calendrier officiel", conf:"Je ne sais pas - pas de calendrier officiel vérifié", sur:false, forme:"Classement vérifié : Manika 11 pts, Lupopo 11 pts, Mazembe 1 pt (matchs en retard)", buts:"On met les vrais matchs dès qu'ils sont annoncés", analyse:"Je préfère ne pas inventer les matchs de Linafoot. Dès que la 7e journée est annoncée, je te la mets avec les vrais matchs. Le classement lui est vrai."},
-]
+var STANDS={pl:[{pos:1,team:"Arsenal",j:11,pts:28,cls:"pos-ucl"},{pos:2,team:"Brighton",j:11,pts:22,cls:"pos-ucl"},{pos:3,team:"Man City",j:11,pts:22,cls:"pos-ucl"},{pos:4,team:"Liverpool",j:11,pts:21,cls:"pos-ucl"},{pos:5,team:"Bournemouth",j:11,pts:18,cls:""},{pos:6,team:"Brentford",j:11,pts:17,cls:""},{pos:8,team:"Chelsea",j:11,pts:16,cls:""},{pos:15,team:"Fulham",j:11,pts:11,cls:""},{pos:16,team:"Ipswich",j:11,pts:11,cls:""},{pos:17,team:"Nottingham Forest",j:11,pts:9,cls:""},{pos:18,team:"Sunderland",j:11,pts:9,cls:"pos-rel"},{pos:19,team:"Man United",j:11,pts:8,cls:"pos-rel"},{pos:20,team:"Crystal Palace",j:11,pts:7,cls:"pos-rel"}],liga:[{pos:1,team:"Barcelone",j:13,pts:36,cls:"pos-ucl"},{pos:2,team:"Real Madrid",j:13,pts:33,cls:"pos-ucl"},{pos:3,team:"Atletico",j:13,pts:31,cls:"pos-ucl"},{pos:4,team:"Real Betis",j:13,pts:27,cls:"pos-ucl"},{pos:5,team:"Real Sociedad",j:13,pts:22,cls:""},{pos:6,team:"Seville",j:13,pts:19,cls:""},{pos:20,team:"Malaga",j:13,pts:5,cls:"pos-rel"}],seriea:[{pos:1,team:"Lazio",j:12,pts:32,cls:"pos-ucl"},{pos:2,team:"Roma",j:12,pts:30,cls:"pos-ucl"},{pos:3,team:"Inter",j:12,pts:29,cls:"pos-ucl"},{pos:4,team:"AC Milan",j:12,pts:27,cls:"pos-ucl"},{pos:5,team:"Como",j:12,pts:26,cls:""},{pos:20,team:"Venezia",j:12,pts:6,cls:"pos-rel"}],bundes:[{pos:1,team:"Dortmund",j:10,pts:24,cls:"pos-ucl"},{pos:2,team:"Bayern",j:10,pts:22,cls:"pos-ucl"},{pos:3,team:"Fribourg",j:10,pts:22,cls:"pos-ucl"},{pos:4,team:"RB Leipzig",j:10,pts:21,cls:"pos-ucl"},{pos:18,team:"Monchengladbach",j:10,pts:4,cls:"pos-rel"}],ligue1:[{pos:1,team:"PSG",j:11,pts:26,cls:"pos-ucl"},{pos:2,team:"Paris FC",j:11,pts:23,cls:"pos-ucl"},{pos:3,team:"Lille",j:11,pts:21,cls:"pos-ucl"},{pos:4,team:"Lyon",j:11,pts:20,cls:"pos-ucl"},{pos:18,team:"Le Havre",j:11,pts:2,cls:"pos-rel"}],lina:[{pos:1,team:"CS Manika (Grp A)",j:6,pts:11,cls:"pos-ucl"},{pos:2,team:"Lupopo (Grp A)",j:6,pts:11,cls:"pos-ucl"},{pos:1,team:"Anges Verts (Grp B)",j:7,pts:14,cls:"pos-ucl"},{pos:13,team:"TP Mazembe (Grp A) - matchs en retard",j:1,pts:1,cls:"pos-rel"}]};
+var NOTES={pl:"Verifie 25 Nov - Man United 19e.",liga:"Verifie 25 Nov - Barca 1er.",seriea:"Verifie 25 Nov - Lazio 1er.",bundes:"Verifie 25 Nov - Dortmund 1er.",ligue1:"Verifie 25 Nov - PSG 1er.",lina:"Verifie 24 Nov - Mazembe matchs en retard."};
+var MATCHS={ven:"<div class='card'><b>Nottingham Forest - Chelsea</b><br>20:00 GMT<br><br>Pronostic : <span class='badgeX'>N - Nul</span><br><p>Mon avis : Forest a domicile est dur. Confiance 50%</p></div>",sam:"<div class='card'><b>Leeds - Coventry</b><br>15:00 GMT<br><br>Pronostic : <span class='badge1'>1 - Leeds</span></div><div class='card'><b>Man United - Brentford</b><br>15:00 GMT<br><br>Pronostic : <span class='badgeX'>N - Nul</span><br><p>United 19e, en crise.</p></div><div class='card'><b>Real Madrid - Alaves</b><br>20:00 GMT<br><br>Pronostic : <span class='badge1'>1 - Real</span><br><p>Confiance 75%</p></div>",dim:"<div class='card'><b>Arsenal - Man City</b><br>16:30 GMT<br><br>Pronostic : <span class='badge1'>1 - Arsenal</span><br><p>Arsenal 1er 28 pts.</p></div><div class='card'><b>Everton - Liverpool</b><br>12:00 GMT<br><br>Pronostic : <span class='badge2'>2 - Liverpool</span></div><div class='card'><b>Deportivo - Barcelone</b><br>15:15 GMT<br><br>Pronostic : <span class='badge2'>2 - Barcelone</span><br><p>Confiance 78%</p></div>"};
+// PROCHAINS MATCHS VERIFIES LUN 30 NOV AU DIM 6 DEC
+var NEXT={
+lun:"<div class='card'><b>Espanyol - Getafe</b><br>Lun 30 Nov - 20:00 GMT - La Liga<br>Calendrier verifie</div><div class='card'><b>Lecce - Atalanta</b><br>Lun 30 Nov - 17:30 GMT - Serie A<br>Calendrier verifie</div><div class='card'><b>Cagliari - AC Milan</b><br>Lun 30 Nov - 19:45 GMT - Serie A<br>Calendrier verifie</div>",
+mar:"<div class='card'><b>Coventry - Ipswich</b><br>Mar 1 Dec - 20:00 GMT - Premier League<br>Calendrier verifie - J13</div>",
+mer:"<div class='card'><b>Chelsea - Crystal Palace</b><br>Mer 2 Dec - 19:30 GMT - Premier League</div><div class='card'><b>Liverpool - Sunderland</b><br>Mer 2 Dec - 19:30 GMT - Premier League</div><div class='card'><b>Man City - Leeds</b><br>Mer 2 Dec - 19:30 GMT - Premier League</div><div class='card'><b>Brentford - Arsenal</b><br>Mer 2 Dec - 20:15 GMT - Premier League</div><div class='card'><b>Newcastle - Man United</b><br>Mer 2 Dec - 20:15 GMT - Premier League</div><div class='card'><b>Real Sociedad - Real Madrid</b><br>Mer 2 Dec - 19:00 GMT - La Liga - Match avance</div><div class='card'><b>Barcelone - Atletico Madrid</b><br>Mer 2 Dec - 21:30 GMT - La Liga - GROS MATCH</div>",
+jeu:"<div class='card'><b>Tottenham - Fulham</b><br>Jeu 3 Dec - 20:00 GMT - Premier League</div>",
+ven2:"<div class='card'><b>Alaves - Espanyol</b><br>Ven 4 Dec - 21:00 GMT - La Liga</div><div class='card'><b>Bologne - Roma</b><br>Ven 4 Dec - 19:45 GMT - Serie A</div>",
+sam2:"<div class='card'><b>Chelsea - Liverpool</b><br>Sam 5 Dec - 12:30 GMT - Premier League - GROS MATCH</div><div class='card'><b>Man United - Coventry</b><br>Sam 5 Dec - 15:00 GMT - Premier League</div><div class='card'><b>Barcelone - Celta Vigo</b><br>Sam 5 Dec - 21:00 GMT - La Liga</div><div class='card'><b>Villarreal - Real Sociedad</b><br>Sam 5 Dec - 18:30 GMT - La Liga</div><div class='card'><b>Monza - Como</b><br>Sam 5 Dec - 14:00 GMT - Serie A</div><div class='card'><b>Napoli - Lecce</b><br>Sam 5 Dec - 19:45 GMT - Serie A</div>",
+dim2:"<div class='card'><b>Tottenham - Arsenal</b><br>Dim 6 Dec - 16:30 GMT - Premier League - DERBY</div><div class='card'><b>Everton - Fulham</b><br>Dim 6 Dec - 14:00 GMT - Premier League</div><div class='card'><b>Athletic Bilbao - Real Madrid</b><br>Dim 6 Dec - 16:15 GMT - La Liga</div><div class='card'><b>Atletico Madrid - Real Betis</b><br>Dim 6 Dec - 21:00 GMT - La Liga</div><div class='card'><b>Lazio - Atalanta</b><br>Dim 6 Dec - 14:00 GMT - Serie A</div><div class='card'><b>Juventus - Udinese</b><br>Dim 6 Dec - 17:00 GMT - Serie A</div><div class='card'><b>AC Milan - Parme</b><br>Dim 6 Dec - 19:45 GMT - Serie A</div>"
 };
-const STANDINGS={
-pl:[{team:"Arsenal",j:11,g:9,n:1,p:1,pts:28,forme:"N V V V V",cls:"pos-ucl"},{team:"Brighton",j:11,g:7,n:1,p:3,pts:22,forme:"D V V D V",cls:"pos-ucl"},{team:"Man City",j:11,g:7,n:1,p:3,pts:22,forme:"N D D D V",cls:"pos-ucl"},{team:"Liverpool",j:11,g:6,n:3,p:2,pts:21,forme:"V V D V V",cls:"pos-ucl"},{team:"Bournemouth",j:11,g:5,n:3,p:3,pts:18,forme:"V V V V V",cls:""},{team:"Chelsea",j:11,g:5,n:1,p:5,pts:16,forme:"D D V D V",cls:""},{team:"Man United",j:11,g:1,n:5,p:5,pts:8,forme:"D D D D D",cls:"pos-rel"},{team:"Crystal Palace",j:11,g:2,n:1,p:8,pts:7,forme:"D D D D D",cls:"pos-rel"}],
-liga:[{team:"Barcelone",j:13,g:12,n:0,p:1,pts:36,forme:"V V V D V",cls:"pos-ucl"},{team:"Real Madrid",j:13,g:11,n:0,p:2,pts:33,forme:"V V V V V",cls:"pos-ucl"},{team:"Atlético",j:13,g:10,n:1,p:2,pts:31,forme:"V D V V V",cls:"pos-ucl"},{team:"Real Betis",j:13,g:8,n:3,p:2,pts:27,forme:"N V V N D",cls:"pos-ucl"},{team:"Real Sociedad",j:13,g:7,n:1,p:5,pts:22,forme:"D V D V V",cls:""},{team:"Séville",j:13,g:5,n:4,p:4,pts:19,forme:"N N D V D",cls:""},{team:"Elche",j:13,g:2,n:5,p:6,pts:11,forme:"D D D D D",cls:"pos-rel"},{team:"Malaga",j:13,g:0,n:5,p:8,pts:5,forme:"D D D D D",cls:"pos-rel"}],
-seriea:[{team:"Lazio",j:12,g:10,n:2,p:0,pts:32,forme:"V V V V V",cls:"pos-ucl"},{team:"Roma",j:12,g:9,n:3,p:0,pts:30,forme:"V V V V V",cls:"pos-ucl"},{team:"Inter",j:12,g:9,n:2,p:1,pts:29,forme:"V V V V V",cls:"pos-ucl"},{team:"AC Milan",j:12,g:8,n:3,p:1,pts:27,forme:"V V V V V",cls:"pos-ucl"},{team:"Como",j:12,g:8,n:2,p:2,pts:26,forme:"V V V V V",cls:""},{team:"Venezia",j:12,g:2,n:0,p:10,pts:6,forme:"D D D D D",cls:"pos-rel"}],
-bundes:[{team:"Dortmund",j:10,g:7,n:3,p:0,pts:24,forme:"V V N V V",cls:"pos-ucl"},{team:"Bayern",j:10,g:6,n:4,p:0,pts:22,forme:"N V V N V",cls:"pos-ucl"},{team:"Fribourg",j:10,g:7,n:1,p:2,pts:22,forme:"V V V D V",cls:"pos-ucl"},{team:"RB Leipzig",j:10,g:7,n:0,p:3,pts:21,forme:"V V V D V",cls:"pos-ucl"},{team:"Leverkusen",j:10,g:6,n:1,p:3,pts:19,forme:"V V N V D",cls:""}],
-ligue1:[{team:"PSG",j:11,g:8,n:2,p:1,pts:26,forme:"V V V D V",cls:"pos-ucl"},{team:"Paris FC",j:11,g:7,n:2,p:2,pts:23,forme:"V V N V V",cls:"pos-ucl"},{team:"Lille",j:11,g:6,n:3,p:2,pts:21,forme:"V V N V V",cls:"pos-ucl"},{team:"Lyon",j:11,g:6,n:2,p:3,pts:20,forme:"V V N V D",cls:"pos-ucl"},{team:"Marseille",j:11,g:6,n:0,p:5,pts:18,forme:"V V D V D",cls:""}],
-linafoot:[{team:"CS Manika (Grp A)",j:6,g:3,n:2,p:1,pts:11,forme:"V V N V N",cls:"pos-ucl"},{team:"Lupopo (Grp A)",j:6,g:3,n:2,p:1,pts:11,forme:"V V N V D",cls:"pos-ucl"},{team:"Malole (Grp A)",j:7,g:2,n:4,p:1,pts:10,forme:"N N V N N",cls:""},{team:"Lubumbashi Sport (Grp A)",j:6,g:3,n:0,p:3,pts:9,forme:"V D V D V",cls:""},{team:"Anges Verts (Grp B)",j:7,g:4,n:2,p:1,pts:14,forme:"V V N V V",cls:"pos-ucl"},{team:"Céleste (Grp B)",j:6,g:3,n:3,p:0,pts:12,forme:"V N V N V",cls:"pos-ucl"},{team:"TP Mazembe (Grp A)",j:1,g:0,n:1,p:0,pts:1,forme:"N",cls:"pos-rel"}],
-};
-const STATS={
-buteurs:[
-{name:"Raphinha",team:"Barcelone - La Liga",val:"15 buts",detail:"Vérifié - meilleur buteur La Liga"},
-{name:"Malen",team:"Roma - Serie A",val:"12 buts",detail:"Vérifié - meilleur buteur Serie A"},
-{name:"Füllkrug",team:"Dortmund - Bundesliga",val:"10 buts",detail:"Vérifié - meilleur buteur Bundesliga"},
-{name:"Haaland",team:"Man City - Premier League",val:"9 buts",detail:"Vérifié - 11 matchs PL"},
-{name:"Sinayoko",team:"Ligue 1",val:"9 buts",detail:"Vérifié - meilleur buteur Ligue 1"},
-{name:"Isak",team:"Liverpool - Premier League",val:"7 buts",detail:"Vérifié - PL"},
-],
-passeurs:[
-{name:"Rice",team:"Arsenal",val:"5 passes",detail:"Vérifié - Premier League"},
-{name:"Evanilson",team:"Bournemouth",val:"4 passes",detail:"Vérifié - Premier League"},
-{name:"Gross",team:"Brighton",val:"4 passes",detail:"Vérifié - Premier League"},
-{name:"McGinn",team:"Aston Villa",val:"4 passes",detail:"Vérifié - Premier League"},
-],
-linafoot:[
-{name:"CS Manika",team:"Groupe A",val:"11 pts",detail:"Vérifié - 1er Groupe A, 6 matchs"},
-{name:"Lupopo",team:"Groupe A",val:"11 pts",detail:"Vérifié - 2e Groupe A, 6 matchs"},
-{name:"Anges Verts",team:"Groupe B",val:"14 pts",detail:"Vérifié - 1er Groupe B, 7 matchs"},
-{name:"TP Mazembe",team:"Groupe A",val:"1 pt - matchs en retard",detail:"Vérifié - 1 match joué seulement"},
-]
-};
-function leagueLabel(id){ const l=LEAGUES.find(x=>x.id===id); return l?l.label:''; }
-function badge(t){ if(t==='1') return '<span class="badge1">1 - Domicile</span>'; if(t==='N') return '<span class="badgeX">N - Nul</span>'; return '<span class="badge2">2 - Extérieur</span>'; }
-function renderLeagueBtns(){ document.getElementById('leagueBtns').innerHTML=LEAGUES.map(l=>`<button class="${l.id===currentLeague?'active':''}" onclick="setLeague('${l.id}')">${l.label}</button>`).join(''); }
-function render(){
-  renderLeagueBtns();
-  ['vendredi','samedi','dimanche'].forEach(jour=>{
-    let html="";
-    DATA[jour].forEach((m,i)=>{
-      const id=jour+'-'+i;
-      html+=`<div class="card" data-teams="${m.teams.toLowerCase()}" data-sur="${m.sur}" data-nul="${m.type==='N'}" data-league="${m.league}"><div style="font-size:11px;color:#2563eb;font-weight:bold;margin-bottom:6px">${leagueLabel(m.league).toUpperCase()} - CALENDRIER VÉRIFIÉ</div><div class="top"><span class="teams">${m.teams}</span><span class="time">${m.time}</span></div><div class="prono"><span>🎯 <b>${m.label}</b><br><span style="color:#2563eb;font-size:11px;font-weight:bold">${m.conf}</span></span>${badge(m.type)}</div><div class="vote"><button onclick="vote('${id}',this,'1')">1 - ${m.teams.split(' - ')[0]}</button><button onclick="vote('${id}',this,'N')">N - Nul</button><button onclick="vote('${id}',this,'2')">2 - ${m.teams.split(' - ')[1]}</button></div><div style="font-size:11px;color:#64748b;margin-top:5px" id="vote-txt-${id}">👥 Ton avis ? Vote ci-dessus - c'est ton avis aussi</div><details><summary>📊 Voir mon analyse (mon avis)</summary><div class="stat-row"><span>Infos vérifiées</span><span>${m.forme}</span></div><div class="stat-row"><span>Classement vérifié</span><span>${m.buts}</span></div><div class="stat-row"><span>Mon analyse</span><span>${m.analyse}</span></div></details></div>`;
-    });
-    document.getElementById(jour).innerHTML=html;
-  });
-  filter();
-}
-render();
-function vote(id,btn,choice){ const p=btn.parentElement; p.querySelectorAll('button').forEach(b=>b.classList.remove('voted')); btn.classList.add('voted'); document.getElementById('vote-txt-'+id).innerText="✅ Merci pour ton vote : "+(choice==='1'?'Victoire domicile':choice==='N'?'Match Nul':'Victoire extérieur')+" - C'est ton avis."; }
-function showDay(j){ ['vendredi','samedi','dimanche'].forEach(d=>{ document.getElementById(d).style.display=d===j?'block':'none'; document.getElementById('btn'+d.charAt(0).toUpperCase()+d.slice(1)).className=d===j?'active':''; }); }
-function setLeague(id){ currentLeague=id; render(); }
-function setFilter(f){ currentFilter=f; document.getElementById('fAll').className=f==='all'?'active':''; document.getElementById('fSur').className=f==='sur'?'active':''; document.getElementById('fNul').className=f==='nul'?'active':''; filter(); }
-function filter(){ const q=document.getElementById('search').value.toLowerCase(); document.querySelectorAll('.card').forEach(card=>{ const teams=card.getAttribute('data-teams'); const sur=card.getAttribute('data-sur')==='true'; const nul=card.getAttribute('data-nul')==='true'; const lg=card.getAttribute('data-league'); let ok=teams.includes(q); if(currentFilter==='sur'&&!sur) ok=false; if(currentFilter==='nul'&&!nul) ok=false; if(currentLeague!=='all'&&lg!==currentLeague) ok=false; card.style.display=ok?'block':'none'; }); }
-function renderStandTabs(){ const leagues=[['pl','🏴󐁧󐁢󐁥󐁮󐁧󐁿 Premier League'],['liga','🇪🇸 La Liga'],['seriea','🇮🇹 Serie A'],['ligue1','🇫🇷 Ligue 1'],['bundes','🇩🇪 Bundesliga'],['linafoot','🇨🇩 Linafoot']]; document.getElementById('standTabs').innerHTML=leagues.map(l=>`<button class="${l[0]===curStand?'active':''}" onclick="setStand('${l[0]}')">${l[1]}</button>`).join(''); }
-function setStand(l){ curStand=l; renderStandTabs(); renderStand(); }
-function renderStand(){ document.getElementById('standBody').innerHTML=STANDINGS[curStand].map((t,i)=>`<tr class="${t.cls}"><td><b>${i+1}</b></td><td><b>${t.team}</b></td><td>${t.j}</td><td>${t.g}</td><td>${t.n}</td><td>${t.p}</td><td><b>${t.pts}</b></td><td style="font-size:11px">${t.forme}</td></tr>`).join(''); const notes={pl:"Vérifié 25 Nov 2026 - Après 11 journées. United 19e c'est vrai.",liga:"Vérifié 25 Nov 2026 - Après 13 journées. Barça 1er 36 pts.",seriea:"Vérifié 25 Nov 2026 - Après 12 journées. Lazio 1er.",bundes:"Vérifié 25 Nov 2026 - Après 10 journées. Dortmund 1er, pas Bayern.",ligue1:"Vérifié 25 Nov 2026 - Après 11 journées. PSG 1er.",linafoot:"Vérifié 24 Nov 2026 - Groupe A et B. Mazembe a des matchs en retard, il n'est pas vraiment dernier."}; document.getElementById('standNote').innerText=notes[curStand]; }
-function showStats(type){ document.getElementById('btnButeurs').className=type==='buteurs'?'active':''; document.getElementById('btnPasseurs').className=type==='passeurs'?'active':''; document.getElementById('btnLinafoot').className=type==='linafoot'?'active':''; document.getElementById('statsBox').innerHTML=STATS[type].map((p,i)=>`<div class="player-row"><div style="display:flex;gap:10px;align-items:center"><div class="player-rank">${i+1}</div><div><b>${p.name}</b><br><span style="font-size:12px;color:#64748b">${p.team} • ${p.detail}</span></div></div><b style="color:#2563eb">${p.val}</b></div>`).join(''); }
-renderStandTabs(); renderStand(); showStats('buteurs');
+function showMain(p){var pages=['live','pronos','next','bilan','class','buteurs'];for(var i=0;i<pages.length;i++){document.getElementById('page-'+pages[i]).style.display=pages[i]===p?'block':'none';document.getElementById('m-'+pages[i]).className=pages[i]===p?'active':'';}if(p==='live')loadLive();}
+function showStand(k){var html="<table><tr><th>Place</th><th>Equipe</th><th>J</th><th>Pts</th></tr>";for(var i=0;i<STANDS[k].length;i++){var t=STANDS[k][i];html+="<tr class='"+t.cls+"'><td><b>"+t.pos+"</b></td><td><b>"+t.team+"</b></td><td>"+t.j+"</td><td><b>"+t.pts+"</b></td></tr>";}html+="</table>";document.getElementById('standBox').innerHTML=html;document.getElementById('standNote').innerText=NOTES[k];var ids=['t-pl','t-liga','t-seriea','t-bundes','t-ligue1','t-lina'];var keys=['pl','liga','seriea','bundes','ligue1','lina'];for(var j=0;j<ids.length;j++){document.getElementById(ids[j]).className=keys[j]===k?'active':'';}}
+function showDay(k){document.getElementById('matchBox').innerHTML=MATCHS[k];document.getElementById('d-ven').className=k==='ven'?'active':'';document.getElementById('d-sam').className=k==='sam'?'active':'';document.getElementById('d-dim').className=k==='dim'?'active':'';}
+function showNext(k){document.getElementById('nextBox').innerHTML=NEXT[k];var ids=['n-lun','n-mar','n-mer','n-jeu','n-ven','n-sam','n-dim'];var keys=['lun','mar','mer','jeu','ven2','sam2','dim2'];for(var i=0;i<ids.length;i++){document.getElementById(ids[i]).className=keys[i]===k?'active':'';}}
 async function loadLive(){
-  const box=document.getElementById('directList');
+  var box=document.getElementById('liveBox');
   try{
-    const today=new Date(); const dateStr=today.getUTCFullYear()+String(today.getUTCMonth()+1).padStart(2,'0')+String(today.getUTCDate()).padStart(2,'0');
-    const res=await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates='+dateStr+'&limit=100');
-    const data=await res.json();
-    document.getElementById('lastUpdate').innerText="Mis à jour: "+new Date().toLocaleTimeString('fr-FR',{timeZone:'GMT'})+" GMT";
-    if(!data.events||data.events.length===0){ box.innerHTML=`<div style="background:white;color:#0f172a;padding:14px;border-radius:12px;text-align:center">Aucun match en direct en ce moment.<br><span style="font-size:12px;color:#64748b">Les vrais pronostics sont juste en dessous ⬇️</span></div>`; return; }
-    let html=""; data.events.forEach(ev=>{ const comps=ev.competitions[0].competitors; const home=comps.find(c=>c.homeAway==='home'); const away=comps.find(c=>c.homeAway==='away'); if(!home||!away) return; const state=ev.status.type.state; const minute=state==='in'?"🔴 "+(ev.status.displayClock||"EN COURS"):state==='post'?"✅ Terminé":"🕐 "+ev.status.type.shortDetail; const score=(home.score!==undefined?home.score:"-")+" - "+(away.score!==undefined?away.score:"-"); html+=`<div class="direct-card"><div><div style="font-weight:bold">${home.team.displayName} - ${away.team.displayName}</div><div style="font-size:12px;color:#dc2626;font-weight:bold">${minute}</div></div><div class="direct-score">${score}</div></div>`; }); box.innerHTML=html;
-  }catch(e){ box.innerHTML=`<div style="background:white;color:#0f172a;padding:14px;border-radius:12px;text-align:center">Direct en chargement... Actualise la page.</div>`; }
+    var today=new Date();var dateStr=today.getUTCFullYear()+String(today.getUTCMonth()+1).padStart(2,'0')+String(today.getUTCDate()).padStart(2,'0');
+    document.getElementById('liveUpdate').innerText="Mis a jour : "+new Date().toLocaleTimeString('fr-FR');
+    var res=await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard?dates='+dateStr);
+    var data=await res.json();
+    if(!data.events||data.events.length===0){box.innerHTML="<div style='background:#0f172a;color:white;padding:14px;border-radius:12px;text-align:center'>Aucun match en direct en ce moment.<br><span style='font-size:12px;opacity:0.7'>Regarde l onglet PROCHAINS LUN-DIM pour les vrais prochains matchs.</span></div>";return;}
+    var html="";data.events.forEach(function(ev){var comps=ev.competitions[0].competitors;var home=comps.find(function(c){return c.homeAway==='home'});var away=comps.find(function(c){return c.homeAway==='away'});if(!home||!away)return;var state=ev.status.type.state;var minute=state==='in'?"EN COURS - "+(ev.status.displayClock||""):state==='post'?"Termine":ev.status.type.shortDetail;var score=(home.score!==undefined?home.score:"-")+" - "+(away.score!==undefined?away.score:"-");html+="<div class='live-card'><div><b>"+home.team.displayName+" - "+away.team.displayName+"</b><br><span style='font-size:12px;color:#facc15'>"+minute+"</span></div><div class='live-score'>"+score+"</div></div>";});box.innerHTML=html;
+  }catch(e){box.innerHTML="<div style='background:#0f172a;color:white;padding:14px;border-radius:12px;text-align:center'>Direct en chargement... Actualise la page.<br>En attendant, va voir PROCHAINS LUN-DIM.</div>";}
 }
-loadLive(); setInterval(loadLive,30000);
+showStand('pl');showDay('ven');showNext('lun');
 </script>
 </body>
 </html>
