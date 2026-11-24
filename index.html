@@ -3,58 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pronostics Europe | Ligue des Champions</title>
+<title>Pronostics Europe | Live</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f1f5f9;color:#0f172a;margin:0}
-.header{background:#2563eb;color:white;padding:22px 15px 18px;text-align:center;border-bottom:4px solid #f97316}
+.header{background:#2563eb;color:white;padding:22px 15px;text-align:center;border-bottom:4px solid #f97316}
 .header h1{margin:0;font-size:24px}
 .header p{margin:6px 0 0;opacity:0.9;font-size:13px}
-.tabs{display:flex;gap:10px;padding:15px;max-width:650px;margin:0 auto}
-.tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
-.tabs button.active{background:#2563eb;color:white}
-.container{padding:0 15px 15px;max-width:650px;margin:0 auto}
-.info{text-align:center;color:#64748b;font-size:12px}
+.live-bar{background:#dc2626;color:white;text-align:center;padding:8px;font-weight:bold;font-size:13px}
+.container{padding:15px;max-width:650px;margin:0 auto}
 .card{background:white;padding:14px;border-radius:14px;margin:12px 0;box-shadow:0 2px 10px rgba(0,0,0,0.07)}
 .top{display:flex;justify-content:space-between;align-items:center}
 .teams{font-weight:bold;font-size:15px}
-.time{background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:12px;border:1px solid #dbeafe}
-.prono{margin-top:10px;padding:10px;background:#f8fafc;border-radius:10px;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.time{background:#eff6ff;color:#2563eb;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:12px}
+.prono{margin-top:10px;padding:10px;background:#f8fafc;border-radius:10px;font-size:14px;display:flex;justify-content:space-between}
 .prono b{color:#16a34a}
-.score{background:#f97316;color:white;padding:4px 9px;border-radius:20px;font-weight:bold;font-size:13px}
-.conf{font-size:11px;color:#2563eb;font-weight:bold}
-details{margin-top:10px;background:#f8fafc;border-radius:10px;padding:10px;font-size:13px}
-summary{font-weight:bold;cursor:pointer;color:#2563eb}
-.stat-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #e2e8f0}
-.stat-row:last-child{border:none}
-.forme span{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;color:white;font-size:11px;font-weight:bold;margin-right:3px}
-.W{background:#16a34a}.D{background:#94a3b8}.L{background:#dc2626}
+.score{background:#f97316;color:white;padding:4px 9px;border-radius:20px;font-weight:bold}
+.live-score{background:#16a34a;color:white;padding:4px 9px;border-radius:20px;font-weight:bold;font-size:13px}
 .footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
 </style>
 </head>
 <body>
 <div class="header">
 <h1>⚽ PRONOSTICS EUROPE</h1>
-<p>Ligue des Champions - 5e Journée | Heure GMT<br>Statistiques, Forme & Analyse</p>
+<p>Ligue des Champions - Scores en direct | Heure GMT</p>
+</div>
+<div class="live-bar">🔴 <span id="status">Connexion aux scores en direct...</span></div>
+
+<div class="container" id="matches">
+<p style="text-align:center">Chargement des matchs...</p>
 </div>
 
-<div class="tabs">
-<button id="btnMardi" class="active" onclick="show('mardi')">MARDI 24 NOV</button>
-<button id="btnMercredi" onclick="show('mercredi')">MERCREDI 25 NOV</button>
-</div>
-<p class="info">Tous les horaires en GMT • Cliquez sur "Voir les stats" pour l'analyse complète</p>
+<div class="footer">Pronostics à titre informatif - © 2026 Pronostics Europe<br>Scores actualisés automatiquement via API</div>
 
-<div class="container">
+<script>
+// ===== METS TA CLÉ ICI =====
+const API_KEY = "ccaaeabdf0744f049b1092b33362c4b0";
+// ============================
 
-<!-- MARDI -->
-<div id="mardi">
+const PRONOS = {
+  "Arsenal": { prono: "Victoire Arsenal", score: "2 - 1", conf: "82%" },
+  "Manchester City": { prono: "Victoire City", score: "3 - 1", conf: "78%" },
+  "Real Madrid": { prono: "Victoire Real", score: "3 - 0", conf: "80%" },
+  "Paris Saint-Germain": { prono: "Victoire PSG", score: "2 - 0", conf: "84%" },
+  "FC Barcelona": { prono: "Victoire Barça", score: "0 - 4", conf: "90%" },
+  "Bayern München": { prono: "Victoire Bayern", score: "1 - 3", conf: "76%" }
+};
 
-<div class="card"><div class="top"><span class="teams">Galatasaray - Aston Villa</span><span class="time">17:45 GMT</span></div><div class="prono"><span>🎯 <b>Victoire Galatasaray</b><br><span class="conf">Confiance: 68%</span></span><span class="score">2 - 1</span></div><details><summary>📊 Voir les stats</summary><div class="stat-row"><span>Forme (5 derniers)</span><span class="forme"><span class="W">V</span><span class="W">V</span><span class="D">N</span><span class="W">V</span><span class="W">V</span> vs <span class="W">V</span><span class="L">D</span><span class="W">V</span><span class="D">N</span><span class="W">V</span></span></div><div class="stat-row"><span>Buts marqués / match</span><span>2.2 vs 1.8</span></div><div class="stat-row"><span>Buts encaissés / match</span><span>0.8 vs 1.1</span></div><div class="stat-row"><span>À domicile / À l'extérieur</span><span>Très fort à domicile</span></div><div class="stat-row"><span>Analyse</span><span>Galatasaray invaincu à domicile, Villa irrégulier à l'extérieur.</span></div></details></div>
-
-<div class="card"><div class="top"><span class="teams">Arsenal - Dortmund</span><span class="time">20:00 GMT</span></div><div class="prono"><span>🎯 <b>Victoire Arsenal</b><br><span class="conf">Confiance: 82% ⭐ SÛR</span></span><span class="score">2 - 1</span></div><details><summary>📊 Voir les stats</summary><div class="stat-row"><span>Forme</span><span class="forme"><span class="W">V</span><span class="W">V</span><span class="W">V</span><span class="W">V</span><span class="D">N</span> vs <span class="W">V</span><span class="D">N</span><span class="L">D</span><span class="W">V</span><span class="D">N</span></span></div><div class="stat-row"><span>Buts marqués / match</span><span>2.4 vs 1.9</span></div><div class="stat-row"><span>Buts encaissés / match</span><span>0.6 vs 1.4</span></div><div class="stat-row"><span>Clean Sheets (5 matchs)</span><span>4 vs 1</span></div><div class="stat-row"><span>Analyse</span><span>Arsenal meilleure défense d'Europe, Dortmund fragile à l'extérieur.</span></div></details></div>
-
-<div class="card"><div class="top"><span class="teams">Man City - Naples</span><span class="time">20:00 GMT</span></div><div class="prono"><span>🎯 <b>Victoire City</b><br><span class="conf">Confiance: 78%</span></span><span class="score">3 - 1</span></div><details><summary>📊 Voir les stats</summary><div class="stat-row"><span>Forme</span><span class="forme"><span class="W">V</span><span class="W">V</span><span class="D">N</span><span class="W">V</span><span class="W">V</span> vs <span class="L">D</span><span class="D">N</span><span class="W">V</span><span class="L">D</span><span class="D">N</span></span></div><div class="stat-row"><span>Buts marqués / match</span><span>2.6 vs 1.3</span></div><div class="stat-row"><span>Possession moyenne</span><span>64% vs 48%</span></div><div class="stat-row"><span>Analyse</span><span>City ultra-dominant à l'Etihad, Naples en difficulté.</span></div></details></div>
-
-<div class="card"><div class="top"><span class="teams">Real Madrid - PSV</span><span class="time">20:00 GMT</span></div><div class="prono"><span>🎯 <b>Victoire Real</b><br><span class="conf">Confiance: 80%</span></span><span class="score">3 - 0</span></div><details><summary>📊 Voir les stats</summary><div class="stat-row"><span>Forme</span><span class="forme"><span class="W">V</span><span class="W">V</span><span class="W">V</span><span class="D">N</span><span class="W">V</span> vs <span class="W">V</span><span class="D">N</span><span class="W">V</span><span class="L">D</span><span class="W">V</span></span></div><div class="stat-row"><span>Buts marqués / match</span><span>2.5 vs 1.8</span></div><div class="stat-row"><span>À domicile</span><span>Real: 4 victoires / 5</span></div><div class="stat-row"><span>Analyse</span><span>Le Bernabéu est une forteresse. PSV encaisse trop.</span></div></details></div>
-
-<div class="card"><div class="top"><span class="teams">RB Leipzig - Lens</span><span class="time">20:00 GMT</span></div><div class="prono"><span>🎯 <b>Victoire Leipzig</b><br><span class="conf">Confiance: 62%</span></span><span class="score">2 - 1</span></div><details><summary>📊 Voir les stats
+async function loadMatches(){
+  try{
+    const res = await fetch('https://api.football-data.org/v4/competitions/CL/matches?matchday=5', {
+      headers: { 'X-Auth-Token': API_KEY }
+    });
+    const data = await res.json();
+    document.getElementById('status').innerText = "En direct - Dernière mise à jour: " + new Date().toLocaleTimeString('fr-FR', {timeZone:'GMT'});
+    let html = "";
+    data.matches.forEach(m => {
+      const home = m.homeTeam.name;
+      const away = m.awayTeam.name;
+      const date = new Date(m.utcDate).toLocaleString('fr-FR', {timeZone:'GMT', day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) + " GMT";
+      const live = m.status === 'FINISHED' ? 'Terminé' : m.status === 'IN_PLAY' ? 'EN DIRECT 🔴' : date;
+      const scoreLive = m.score.fullTime.home !== null ? m.score.fullTime.home + " - " + m.score.fullTime.away : "VS";
+      const prono = PRONOS[home] || PRONOS[away] || {prono:"Voir analyse", score:"-"};
+      html += `<div class="card"><div class="top"><span class="teams">${home} - ${away}</span><span class="time">${live}</span></div>
+      <div style="margin-top:8px;display:flex;justify-content:space-between"><span>Score réel: <span class="live-score">${scoreLive}</span></span></div>
+      <div class="prono"><span>🎯 <b>${prono.prono}</b> - Confiance ${prono.conf || ''}</span><span class="score">${prono.score}</span></div></div>`;
+    });
+    document.getElementById('matches').innerHTML = html || "<p>Aucun match trouvé pour cette journée.</p>";
+  }catch(e){
+    document.getElementById('status').innerText = "Mode hors-ligne - Vérifie ta clé API";
+    document.getElementById('matches').innerHTML = "<p style='text-align:center'>Erreur de connexion. Vérifie que ta clé API est bien collée dans le code.</p>";
+  }
+}
+loadMatches();
+setInterval(loadMatches, 60000);
+</script>
+</body>
+</html>
