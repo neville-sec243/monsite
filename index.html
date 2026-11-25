@@ -3,35 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neville Pronos - Pronos du jour</title>
+<title>PRONOSPRO - Pronostics Foot</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#f2f2f2}
 header{background:#0a1a3a;color:#fff;padding:14px;text-align:center;position:sticky;top:0;z-index:10}
-header h1{font-size:22px} header h1 span{color:#ffc107}
-header p{font-size:12px;opacity:.8;margin-top:3px}
-.tabs{display:flex;background:#fff;overflow-x:auto;border-bottom:1px solid #ddd;position:sticky;top:62px;z-index:9}
-.tab{flex:1;min-width:95px;padding:12px 5px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;color:#666;border-bottom:3px solid transparent}
+header h1{font-size:24px} header h1 span{color:#1db954}
+header p{font-size:12px;opacity:.8}
+.search{margin:10px;background:#fff;border-radius:10px;padding:8px}
+.search input{width:100%;padding:11px;border:1px solid #ddd;border-radius:8px;font-size:14px}
+.tabs{display:flex;background:#fff;overflow-x:auto;border-bottom:1px solid #ddd;position:sticky;top:70px;z-index:9}
+.tab{flex:1;min-width:90px;padding:12px 5px;text-align:center;font-size:12px;font-weight:700;cursor:pointer;color:#666;border-bottom:3px solid transparent;white-space:nowrap}
 .tab.active{color:#0a7a3a;border-bottom:3px solid #0a7a3a}
+.menu{display:flex;gap:8px;padding:10px;overflow-x:auto}
+.menu button{padding:9px 13px;border:none;border-radius:20px;background:#fff;font-weight:700;cursor:pointer;white-space:nowrap}
+.menu button.active{background:#0a1a3a;color:#fff}
 .section{margin:10px;background:#fff;border-radius:10px;overflow:hidden}
 .sec-title{padding:11px 12px;font-size:13px;font-weight:800;background:#f8f8f8;border-bottom:1px solid #eee}
-.sec-title.live{color:#d32f2f}
-.match{display:flex;align-items:center;padding:11px;border-bottom:1px solid #f0f0f0}
-.time{width:58px;font-size:12px;color:#666;text-align:center}
-.time b{color:#111;font-size:13px}
-.teams{flex:1;padding:0 8px}.teams div{font-size:14px;padding:2px 0;font-weight:600}
-.teams small{font-size:11px;color:#888}
+.match{display:flex;align-items:center;padding:11px;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.time{width:56px;font-size:12px;color:#666;text-align:center}.time b{color:#111;font-size:13px}
+.teams{flex:1;padding:0 8px}.teams div{font-size:14px;padding:2px 0;font-weight:600}.teams small{font-size:11px;color:#888}
 .prono{text-align:right;min-width:78px}
-.prono .p{display:inline-block;background:#0a7a3a;color:#fff;font-weight:800;padding:5px 10px;border-radius:20px;font-size:13px}
-.prono .affiche{display:inline-block;background:#eee;color:#666;font-weight:700;padding:5px 10px;border-radius:20px;font-size:12px}
+.p{display:inline-block;background:#0a7a3a;color:#fff;font-weight:800;padding:5px 10px;border-radius:20px;font-size:13px}
+.affiche{display:inline-block;background:#eee;color:#666;font-weight:700;padding:5px 10px;border-radius:20px;font-size:12px}
 .prono small{display:block;font-size:11px;color:#666;margin-top:4px}
-.note{padding:12px;font-size:12px;color:#777;text-align:center;line-height:1.5}
+.star{font-size:20px;cursor:pointer;padding:0 4px}
+.star.on{color:#ffc107}
+.note{padding:12px;font-size:12px;color:#777;text-align:center;line-height:1.6}
 .hidden{display:none}
+.bilan{display:flex;gap:10px;padding:12px}
+.bilan div{flex:1;background:#f8f8f8;border-radius:10px;padding:12px;text-align:center}
+.bilan b{font-size:20px;display:block}
+table{width:100%;border-collapse:collapse;font-size:13px} td,th{padding:9px 8px;border-bottom:1px solid #eee;text-align:left} th{background:#f8f8f8}
+.detail{background:#fff8e1;padding:10px;font-size:13px;line-height:1.5;border-top:1px dashed #ffc107}
+footer{padding:16px;text-align:center;font-size:12px;color:#888}
+footer b{color:#0a1a3a}
 </style>
 </head>
 <body>
-<header><h1>NEVILLE <span>PRONOS</span></h1><p>Pronostics foot • Style LiveScore</p></header>
-<div class="tabs">
+<header><h1>⚽ PRONOS<span>PRO</span> ⭐</h1><p>Pronostics Foot • Affiches • Live • Classements</p></header>
+
+<div class="search"><input id="searchInput" onkeyup="searchMatch()" placeholder="🔍 Rechercher une équipe... ex: Real Madrid, Arsenal, PSG"></div>
+
+<div class="menu">
+<button class="active" onclick="menu('matchs',this)">⚽ Matchs</button>
+<button onclick="menu('favoris',this)">⭐ Mes Favoris</button>
+<button onclick="menu('classement',this)">📊 Classements</button>
+<button onclick="menu('bilan',this)">🎯 Mon Bilan</button>
+<button onclick="menu('alerte',this)">🔔 Alertes</button>
+</div>
+
+<div class="tabs" id="tabs">
 <div class="tab active" onclick="show('today',this)">AUJOURD'HUI<br><small>Mer 25</small></div>
 <div class="tab" onclick="show('tom',this)">DEMAIN<br><small>Jeu 26</small></div>
 <div class="tab" onclick="show('fri',this)">VEN 27</div>
@@ -39,101 +61,94 @@ header p{font-size:12px;opacity:.8;margin-top:3px}
 <div class="tab" onclick="show('sun',this)">DIM 29</div>
 </div>
 
-<!-- AUJOURD'HUI -->
+<!-- MATCHS -->
+<div id="page-matchs">
 <div id="today">
-<div class="section"><div class="sec-title live">🔴 EN DIRECT - LIGUE DES CHAMPIONS</div><div class="note">Aucun match en direct pour le moment. Les matchs de 19:45 et 22:00 apparaîtront ici en LIVE.</div></div>
+<div class="section"><div class="sec-title">🔴 EN DIRECT</div><div class="note">Aucun match en direct pour le moment.</div></div>
 <div class="section"><div class="sec-title">⚽ AUJOURD'HUI - LIGUE DES CHAMPIONS</div>
-<div class="match"><div class="time"><b>19:45</b><br>LDC</div><div class="teams"><div>Sabah FK</div><div>FC Barcelone</div><small>Baku</small></div><div class="prono"><span class="p">2</span><small>Barça • 82%</small></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>LDC</div><div class="teams"><div>Slavia Prague</div><div>Villarreal</div></div><div class="prono"><span class="p">X2</span><small>64%</small></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Atlético Madrid</div><div>Viking FK</div></div><div class="prono"><span class="p">1</span><small>Atlético • 78%</small></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Club Brugge</div><div>Liverpool</div></div><div class="prono"><span class="p">2</span><small>Liverpool • 65%</small></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Inter Milan</div><div>Stuttgart</div></div><div class="prono"><span class="p">1</span><small>Inter • 68%</small></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Lille</div><div>Bayern Munich</div></div><div class="prono"><span class="p">2</span><small>Bayern • 74%</small></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>PSG</div><div>AS Roma</div></div><div class="prono"><span class="p">1</span><small>PSG • 71%</small></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Shakhtar</div><div>Fenerbahçe</div></div><div class="prono"><span class="p">X</span><small>Nul • 45%</small></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Sporting CP</div><div>Man United</div></div><div class="prono"><span class="p">1X</span><small>62%</small></div></div>
+<div class="match" onclick="toggleDetail(this)"><div class="time"><b>19:45</b><br>LDC</div><div class="teams"><div>Sabah FK</div><div>FC Barcelone</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="p">2</span><small>Barça • 82%</small></div></div>
+<div class="detail hidden">💡 Pourquoi ce prono ? Barça plus fort, plus d'expérience. Sabah joue à domicile mais niveau trop différent. Clique sur l'étoile pour mettre en favori.</div>
+<div class="match" onclick="toggleDetail(this)"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>PSG</div><div>AS Roma</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="p">1</span><small>PSG • 71%</small></div></div>
+<div class="detail hidden">💡 PSG à domicile au Parc, très fort. Roma solide mais PSG favori.</div>
+<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Inter Milan</div><div>Stuttgart</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="p">1</span><small>68%</small></div></div>
+<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Lille</div><div>Bayern Munich</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="p">2</span><small>74%</small></div></div>
+<div class="match"><div class="time"><b>22:00</b><br>LDC</div><div class="teams"><div>Sporting CP</div><div>Man United</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="p">1X</span><small>62%</small></div></div>
 </div></div>
 
-<!-- DEMAIN JEUDI -->
-<div id="tom" class="hidden">
-<div class="section"><div class="sec-title">🏆 DEMAIN - EUROPA LEAGUE</div>
-<div class="match"><div class="time"><b>19:45</b><br>UEL</div><div class="teams"><div>Besiktas</div><div>Hapoel Beer Sheva</div></div><div class="prono"><span class="affiche">AFFICHE</span><small>Prono demain</small></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UEL</div><div class="teams"><div>Salzburg</div><div>Ararat-Armenia</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UEL</div><div class="teams"><div>Celta Vigo</div><div>Bournemouth</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UEL</div><div class="teams"><div>Marseille</div><div>Levski Sofia</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UEL</div><div class="teams"><div>Plzen</div><div>Benfica</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UEL</div><div class="teams"><div>Olympiacos</div><div>AC Milan</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UEL</div><div class="teams"><div>Dinamo Zagreb</div><div>Bayer Leverkusen</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UEL</div><div class="teams"><div>Union St-Gilloise</div><div>Lech Poznan</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UEL</div><div class="teams"><div>Crystal Palace</div><div>Real Sociedad</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UEL</div><div class="teams"><div>Juventus</div><div>Omonia Nicosia</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UEL</div><div class="teams"><div>Lyon</div><div>Lillestrom</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UEL</div><div class="teams"><div>Hoffenheim</div><div>Sturm Graz</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UEL</div><div class="teams"><div>Sunderland</div><div>Jagiellonia</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UEL</div><div class="teams"><div>Torreense</div><div>Celtic</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div id="tom" class="hidden"><div class="section"><div class="sec-title">🏆 DEMAIN - EUROPA + CONFERENCE</div>
+<div class="match"><div class="time"><b>19:45</b></div><div class="teams"><div>Celta Vigo</div><div>Bournemouth</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>19:45</b></div><div class="teams"><div>Marseille</div><div>Levski Sofia</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>19:45</b></div><div class="teams"><div>Olympiacos</div><div>AC Milan</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>22:00</b></div><div class="teams"><div>Crystal Palace</div><div>Real Sociedad</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>22:00</b></div><div class="teams"><div>Juventus</div><div>Omonia</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>19:45</b></div><div class="teams"><div>Brighton</div><div>Craiova</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+</div></div>
+
+<div id="fri" class="hidden"><div class="section"><div class="sec-title">📅 VENDREDI 27</div>
+<div class="match"><div class="time"><b>22:00</b></div><div class="teams"><div>Nottingham Forest</div><div>Chelsea</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>22:00</b></div><div class="teams"><div>Levante</div><div>Racing Santander</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>21:45</b></div><div class="teams"><div>Venezia</div><div>Bologne</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+</div></div>
+
+<div id="sat" class="hidden"><div class="section"><div class="sec-title">📅 SAMEDI 28</div>
+<div class="match"><div class="time"><b>17:00</b></div><div class="teams"><div>Man United</div><div>Brentford</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>19:30</b></div><div class="teams"><div>Ipswich</div><div>Aston Villa</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>21:45</b></div><div class="teams"><div>Inter</div><div>Genoa</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>22:00</b></div><div class="teams"><div>Real Madrid</div><div>Alavés</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+</div></div>
+
+<div id="sun" class="hidden"><div class="section"><div class="sec-title">📅 DIMANCHE 29 - GROS JOUR</div>
+<div class="match"><div class="time"><b>14:00</b></div><div class="teams"><div>Everton</div><div>Liverpool</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>17:15</b></div><div class="teams"><div>Deportivo</div><div>Barcelone</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>18:30</b></div><div class="teams"><div>Arsenal</div><div>Man City</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+<div class="match"><div class="time"><b>21:45</b></div><div class="teams"><div>Como</div><div>Juventus</div></div><div class="star" onclick="fav(event,this)">☆</div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
+</div></div>
 </div>
-<div class="section"><div class="sec-title">🏆 DEMAIN - CONFERENCE LEAGUE</div>
-<div class="match"><div class="time"><b>17:30</b><br>UECL</div><div class="teams"><div>Kairat Almaty</div><div>Mjallby</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UECL</div><div class="teams"><div>Brighton</div><div>Universitatea Craiova</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UECL</div><div class="teams"><div>Hearts</div><div>Monaco</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:45</b><br>UECL</div><div class="teams"><div>Ajax</div><div>Thun</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UECL</div><div class="teams"><div>Freiburg</div><div>Twente</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UECL</div><div class="teams"><div>Braga</div><div>KuPS</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>UECL</div><div class="teams"><div>Gent</div><div>Crvena Zvezda</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-</div></div>
 
-<!-- VENDREDI -->
-<div id="fri" class="hidden">
-<div class="section"><div class="sec-title">📅 VENDREDI 27 NOV - AFFICHES</div>
-<div class="match"><div class="time"><b>22:00</b><br>PL</div><div class="teams"><div>Nottingham Forest</div><div>Chelsea</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>La Liga</div><div class="teams"><div>Levante</div><div>Racing Santander</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>21:45</b><br>Serie A</div><div class="teams"><div>Venezia</div><div>Bologne</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>21:30</b><br>Bundes</div><div class="teams"><div>Werder Bremen</div><div>Gladbach</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>21:45</b><br>Ligue 1</div><div class="teams"><div>Brest</div><div>Paris FC</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-</div></div>
+<!-- FAVORIS -->
+<div id="page-favoris" class="hidden"><div class="section"><div class="sec-title">⭐ MES FAVORIS</div><div class="note" id="favNote">Tu n'as pas encore de favori.<br>Clique sur ☆ à côté d'un match pour l'ajouter ici.</div><div id="favList"></div></div></div>
 
-<!-- SAMEDI -->
-<div id="sat" class="hidden">
-<div class="section"><div class="sec-title">📅 SAMEDI 28 NOV - AFFICHES</div>
-<div class="match"><div class="time"><b>15:00</b><br>La Liga</div><div class="teams"><div>Real Betis</div><div>Rayo Vallecano</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>17:00</b><br>PL</div><div class="teams"><div>Leeds United</div><div>Coventry City</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>17:00</b><br>PL</div><div class="teams"><div>Man United</div><div>Brentford</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>17:15</b><br>La Liga</div><div class="teams"><div>Malaga</div><div>Athletic Bilbao</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>16:00</b><br>Serie A</div><div class="teams"><div>Frosinone</div><div>Parme</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:00</b><br>Serie A</div><div class="teams"><div>Torino</div><div>Lazio</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:30</b><br>PL</div><div class="teams"><div>Ipswich Town</div><div>Aston Villa</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:30</b><br>La Liga</div><div class="teams"><div>Elche</div><div>Atlético Madrid</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>21:45</b><br>Serie A</div><div class="teams"><div>Inter</div><div>Genoa</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>La Liga</div><div class="teams"><div>Real Madrid</div><div>Alavés</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>Ligue 1</div><div class="teams"><div>PSG</div><div>Lorient</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-</div></div>
+<!-- CLASSEMENTS -->
+<div id="page-classement" class="hidden"><div class="section"><div class="sec-title">📊 PREMIER LEAGUE - À VÉRIFIER CHAQUE LUNDI</div><table><tr><th>#</th><th>Équipe</th><th>Pts</th></tr><tr><td>1</td><td>Arsenal</td><td>-</td></tr><tr><td>2</td><td>Man City</td><td>-</td></tr><tr><td>3</td><td>Liverpool</td><td>-</td></tr></table><div class="note">Je mets les vrais points ici chaque lundi. Pour l'instant, je ne mets pas de faux points.</div></div>
+<div class="section"><div class="sec-title">📊 LA LIGA</div><table><tr><th>#</th><th>Équipe</th><th>Pts</th></tr><tr><td>1</td><td>Real Madrid</td><td>-</td></tr><tr><td>2</td><td>Barcelone</td><td>-</td></tr><tr><td>3</td><td>Atlético</td><td>-</td></tr></table></div></div>
 
-<!-- DIMANCHE -->
-<div id="sun" class="hidden">
-<div class="section"><div class="sec-title">📅 DIMANCHE 29 NOV - GROS JOUR</div>
-<div class="match"><div class="time"><b>13:30</b><br>Serie A</div><div class="teams"><div>Udinese</div><div>Fiorentina</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>14:00</b><br>PL</div><div class="teams"><div>Everton</div><div>Liverpool</div><small>DERBY</small></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>15:00</b><br>La Liga</div><div class="teams"><div>Valencia</div><div>Osasuna</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>16:05</b><br>PL</div><div class="teams"><div>Fulham</div><div>Bournemouth</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>16:05</b><br>PL</div><div class="teams"><div>Brighton</div><div>Newcastle</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>16:05</b><br>PL</div><div class="teams"><div>Sunderland</div><div>Tottenham</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>16:05</b><br>PL</div><div class="teams"><div>Crystal Palace</div><div>Hull City</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>16:00</b><br>Serie A</div><div class="teams"><div>Sassuolo</div><div>Napoli</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>17:15</b><br>La Liga</div><div class="teams"><div>Deportivo</div><div>Barcelone</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>18:30</b><br>PL</div><div class="teams"><div>Arsenal</div><div>Man City</div><small>GROS MATCH</small></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:00</b><br>Serie A</div><div class="teams"><div>Roma</div><div>Monza</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>19:30</b><br>La Liga</div><div class="teams"><div>Celta Vigo</div><div>Villarreal</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>21:45</b><br>Serie A</div><div class="teams"><div>Como</div><div>Juventus</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-<div class="match"><div class="time"><b>22:00</b><br>La Liga</div><div class="teams"><div>Real Sociedad</div><div>Sevilla</div></div><div class="prono"><span class="affiche">AFFICHE</span></div></div>
-</div></div>
+<!-- BILAN -->
+<div id="page-bilan" class="hidden"><div class="section"><div class="sec-title">🎯 MON BILAN - PRONOSPRO</div><div class="bilan"><div><b>6</b>Gagnés</div><div><b>3</b>Perdus</div><div><b>67%</b>Réussite</div></div><div class="note">Mets à jour ton bilan toi-même après chaque journée. C'est ça qui fait croire les gens : tu montres même quand tu perds.</div></div></div>
 
-<div class="note">Heures = heure de Lubumbashi (CAT). Pronostics = avis de Neville, pas une garantie. Les affiches = vrais matchs vérifiés.</div>
+<!-- ALERTES -->
+<div id="page-alerte" class="hidden"><div class="section"><div class="sec-title">🔔 ALERTES</div><div class="note">Choisis ton équipe :<br><br><button onclick="alert('Alerte activée pour Arsenal !')" style="padding:10px 16px;border:none;background:#0a7a3a;color:#fff;border-radius:20px;font-weight:700">🔔 Arsenal</button> <button onclick="alert('Alerte activée pour Real Madrid !')" style="padding:10px 16px;border:none;background:#0a7a3a;color:#fff;border-radius:20px;font-weight:700">🔔 Real Madrid</button><br><br>Pour l'instant l'alerte est simple. La vraie notification automatique, on la fera plus tard.</div></div></div>
+
+<footer><b>PRONOSPRO</b> - Pronostics • Affiches • Live<br>Pronostics = avis, pas une garantie.</footer>
+
 <script>
 function show(id,el){
 ['today','tom','fri','sat','sun'].forEach(x=>document.getElementById(x).classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-el.classList.add('active');
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+}
+function menu(page,btn){
+['matchs','favoris','classement','bilan','alerte'].forEach(p=>document.getElementById('page-'+p).classList.add('hidden'));
+document.getElementById('page-'+page).classList.remove('hidden');
+document.getElementById('tabs').style.display = page==='matchs'?'flex':'none';
+document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+}
+function searchMatch(){
+let q=document.getElementById('searchInput').value.toLowerCase();
+document.querySelectorAll('.match').forEach(m=>{
+m.style.display = m.innerText.toLowerCase().includes(q)?'flex':'none';
+});
+}
+function fav(e,el){
+e.stopPropagation();
+el.classList.toggle('on'); el.innerText = el.classList.contains('on')?'★':'☆';
+let name = el.parentElement.querySelector('.teams').innerText;
+let list=document.getElementById('favList');
+if(el.classList.contains('on')){ list.innerHTML += '<div class="match"><div class="teams"><div>'+name+'</div></div></div>'; document.getElementById('favNote').style.display='none'; }
+else { alert('Retiré des favoris'); }
+}
+function toggleDetail(el){
+let d=el.nextElementSibling;
+if(d && d.classList.contains('detail')) d.classList.toggle('hidden');
 }
 </script>
 </body>
